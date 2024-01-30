@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginValidators } from '../../validators/loginValidators';
+import { AuthService } from '../../services/auth.service';
+import { LoginResponsePayload } from '../../models/LoginResponsePayload';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -10,13 +14,14 @@ import { LoginValidators } from '../../validators/loginValidators';
 export class LoginComponent implements OnInit {
 
 
-  checkoutFormGroup!: FormGroup;
+  credentialsFormGroup!: FormGroup;
+  invalidCredentials: boolean = false;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.checkoutFormGroup = this.formBuilder.group({
+    this.credentialsFormGroup = this.formBuilder.group({
       credentials: this.formBuilder.group({
         username: new FormControl('',
           [Validators.required,
@@ -32,13 +37,27 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  get username() { return this.checkoutFormGroup.get('credentials.username'); }
-  get password() { return this.checkoutFormGroup.get('credentials.password'); }
+  get username() { return this.credentialsFormGroup.get('credentials.username'); }
+  get password() { return this.credentialsFormGroup.get('credentials.password'); }
 
 
   login() {
     this.loading = true;
+    this.authService.login(this.credentialsFormGroup.get('credentials')?.value).subscribe(
+      data => {
+        this.authService.setToken(data);
+        this.loading = false;
+        this.router.navigateByUrl('/home');
+      }, error => {
+        this.loading = false;
+        if (error.status == 401) {
+          this.invalidCredentials = true;
+        }
+      }
+    )
   }
+
+
 
 
 }

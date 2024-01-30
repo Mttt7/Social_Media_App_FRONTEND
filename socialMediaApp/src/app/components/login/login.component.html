@@ -1,20 +1,23 @@
 <div class="main">
-    <div class="box" *ngIf="!loading">
-        <div class="greet">Welcome Back!</div>
 
-        <div class="form">
-            <div class="inputs">
+    <div class="box">
+
+
+
+        <form class="form" [formGroup]="credentialsFormGroup">
+            <div class="inputs" formGroupName="credentials">
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-regular fa-user"></i>
                     </p-inputGroupAddon>
-                    <input pInputText placeholder="Username" formControlName="login" />
+                    <input pInputText placeholder="Username" formControlName="username" [disabled]="loading" />
                 </p-inputGroup>
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-solid fa-lock"></i>
                     </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="Password" formControlName="password" />
+                    <input pInputText type="password" placeholder="Password" formControlName="password"
+                        [disabled]="loading" />
                 </p-inputGroup>
             </div>
 
@@ -23,11 +26,8 @@
 
             </p-button>
 
-        </div>
+        </form>
 
     </div>
-    <div class="loading-box" *ngIf="loading">
-        <div class="loader"></div>
 
-    </div>
 </div>
