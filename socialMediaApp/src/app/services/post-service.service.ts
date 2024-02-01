@@ -18,6 +18,10 @@ export class PostService {
     return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${id}&pageSize=10&pageNumber=0`);
   }
 
+  getFeedPosts(): Observable<GetResponsePosts> {
+    return this.http.get<GetResponsePosts>(`${this.postUrl}/feed?pageSize=10&pageNumber=0`);
+  }
+
   getReactionCount(postId: number): Observable<ReactionCountResponse> {
     return this.http.get<ReactionCountResponse>(`${this.postUrl}/${postId}/reactions`);
   }

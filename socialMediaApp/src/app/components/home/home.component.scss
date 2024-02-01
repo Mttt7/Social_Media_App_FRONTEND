@@ -10,3 +10,31 @@
 .posts {
     display: flex;
 }
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.feed-type {
+    display: flex;
+    gap: 1rem;
+
+    div {
+        cursor: pointer;
+    }
+
+    div:hover {
+        transform: scale(1.06);
+    }
+}
+
+.create-post {
+    cursor: pointer;
+}
+
+.create-post:hover {
+    transform: scale(1.06);
+}

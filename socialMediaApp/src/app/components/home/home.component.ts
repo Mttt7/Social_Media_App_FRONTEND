@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post-service.service';
 import { Post } from '../../models/Post';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,30 @@ export class HomeComponent implements OnInit {
 
   posts: Post[] = [];
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.postService.getUserPosts().subscribe(
-      data => {
-        this.posts = data.content as Post[]
+    this.route.paramMap.subscribe((params) => {
+      if (params.get('feedType') === 'feed') {
+        this.postService.getFeedPosts().subscribe(
+          data => {
+            this.posts = data.content as Post[]
+          }
+        )
+      } else if (params.get('feedType') === 'user') {
+        this.postService.getUserPosts().subscribe(
+          data => {
+            this.posts = data.content as Post[]
+          }
+        )
       }
-    )
+    })
+
+    // this.postService.getUserPosts().subscribe(
+    //   data => {
+    //     this.posts = data.content as Post[]
+    //   }
+    // )
   }
 
 

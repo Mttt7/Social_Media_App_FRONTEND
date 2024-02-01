@@ -34,10 +34,6 @@ export class PostComponent {
         this.countReaction.next(data);
       }
     )
-
-    // this.countReaction.subscribe(reaction => {
-
-    // });
   }
 
   react(Reaction: Reaction) {
