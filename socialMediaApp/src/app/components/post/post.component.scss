@@ -1,10 +1,23 @@
 .post {
     width: 500px;
-    height: 450px;
-    padding: .4rem;
+    height: 600px;
+    color: white;
+}
 
-    background-color: rgb(222, 222, 222);
+.section {
+    background-color: #121212;
+    padding: 1rem;
+}
 
+.upper-section {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.bot-section {
+    border-radius: 0px 0px 12px 12px;
 }
 
 .image {
@@ -12,8 +25,10 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border-radius: 10px;
 
     img {
+        border-radius: 5px;
         width: 320px;
         height: auto;
     }
@@ -21,7 +36,7 @@
 
 .title {
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center;
     margin: .4rem 0;
 }

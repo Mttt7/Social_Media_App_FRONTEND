@@ -1,12 +1,15 @@
 <div class="post">
-    <div class="upper-section">
+    <div class="author">
+        <app-user-badge [userId]="post.userId"></app-user-badge>
+    </div>
+    <div class="upper-section section">
         <div class="image">
             <img src="../../../assets/images/sample.jpg" alt="">
         </div>
         <div class="title">{{post.title}}</div>
         <div class="content">{{post.content}}</div>
     </div>
-    <div class="bot-section">
+    <div class="bot-section section">
         <div class="reaction">
             <div class="reaction-count">{{(countReaction | async)?.overall}}</div>
             <div class="add-reaction">
@@ -27,5 +30,4 @@
         </div>
 
     </div>
-
 </div>

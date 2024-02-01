@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MessageService } from 'primeng/api';
 import { HeaderComponent } from './components/header/header.component';
 import { PostComponent } from './components/post/post.component';
+import { UserBadgeComponent } from './components/user-badge/user-badge.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PostComponent } from './components/post/post.component';
     LoginComponent,
     HomeComponent,
     HeaderComponent,
-    PostComponent
+    PostComponent,
+    UserBadgeComponent
   ],
   imports: [
     BrowserModule,
