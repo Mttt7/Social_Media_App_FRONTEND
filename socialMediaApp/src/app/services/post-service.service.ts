@@ -1,9 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Post } from '../models/Post';
+import { ReactionCountResponse } from '../models/ReactionCountResponse';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostServiceService {
+export class PostService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  postUrl = 'http://localhost:5000/api/v1/posts';
+
+  getUserPosts(): Observable<GetResponsePosts> {
+    let id = localStorage.getItem('userId');
+    return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${id}&pageSize=10&pageNumber=0`);
+  }
+
+  getReactionCount(postId: number): Observable<ReactionCountResponse> {
+    return this.http.get<ReactionCountResponse>(`${this.postUrl}/${postId}/reactions`);
+  }
+
+  reactToPost(postId: number, reaction: number): Observable<ReactionCountResponse> {
+    return this.http.post<ReactionCountResponse>(`${this.postUrl}/${postId}/${reaction}`, null);
+  }
+
 }
+
+interface GetResponsePosts {
+  content: Post[];
+  pageable: any;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  size: number;
+  number: number;
+  first: boolean;
+  numberOfElements: number;
+}
+

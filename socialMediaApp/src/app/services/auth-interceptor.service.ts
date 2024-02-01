@@ -14,9 +14,11 @@ export class AuthInterceptorService {
   }
 
   private async handleAccess(request: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
-    const securedEndpoints = ['http://localhost:5000/api/v1/posts'];
+    //const securedEndpoints = ['http://localhost:5000/api/v1/posts', 'http://localhost:5000/api/v1/user'];
+    const securedEndpoints = ['http://localhost:5000/api/v1']
 
-    if (securedEndpoints.some(url => request.urlWithParams.includes(url))) {
+    if (securedEndpoints.some(url => request.urlWithParams.includes(url))
+      && !securedEndpoints.some(url => request.urlWithParams.includes("http://localhost:5000/api/v1/auth"))) {
       const accessToken = localStorage.getItem('jwtToken');
 
       request = request.clone({

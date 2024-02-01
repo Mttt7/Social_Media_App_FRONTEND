@@ -15,12 +15,16 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { MessageService } from 'primeng/api';
+import { HeaderComponent } from './components/header/header.component';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

@@ -10,17 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
-  private loginUrl = 'http://localhost:5000/api/v1/auth/login';
+  private authUrl = 'http://localhost:5000/api/v1/auth';
 
   constructor(private http: HttpClient) { }
 
   login(credentials: LoginRequestPayload): Observable<LoginResponsePayload> {
-    return this.http.post<LoginResponsePayload>(this.loginUrl, credentials);
+    return this.http.post<LoginResponsePayload>(this.authUrl + '/login', credentials);
   }
 
   setToken(token: LoginResponsePayload) {
     localStorage.setItem('jwtToken', token.accessToken);
   }
-
 
 }

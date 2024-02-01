@@ -4,6 +4,7 @@ import { LoginValidators } from '../../validators/loginValidators';
 import { AuthService } from '../../services/auth.service';
 import { LoginResponsePayload } from '../../models/LoginResponsePayload';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   invalidCredentials: boolean = false;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.credentialsFormGroup = this.formBuilder.group({
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
           LoginValidators.notOnlyWhitespace])
       })
     })
+
+
+
   }
 
   get username() { return this.credentialsFormGroup.get('credentials.username'); }
@@ -47,7 +51,13 @@ export class LoginComponent implements OnInit {
       data => {
         this.authService.setToken(data);
         this.loading = false;
-        this.router.navigateByUrl('/home');
+        this.userService.getUserId().subscribe(
+          data => {
+            localStorage.setItem('userId', data.toString());
+            this.router.navigateByUrl('/home');
+          }
+        )
+
       }, error => {
         this.loading = false;
         if (error.status == 401) {
