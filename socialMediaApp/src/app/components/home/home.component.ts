@@ -12,6 +12,9 @@ export class HomeComponent implements OnInit {
 
 
   posts: Post[] = [];
+  loading: boolean = false;
+  pageNumber: number = 0;
+  noMorePosts: boolean = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute) { }
 
@@ -22,15 +25,23 @@ export class HomeComponent implements OnInit {
   getPosts() {
     this.route.paramMap.subscribe((params) => {
       if (params.get('feedType') === 'feed') {
-        this.postService.getFeedPosts().subscribe(
+        this.postService.getFeedPosts(this.pageNumber).subscribe(
           data => {
-            this.posts = data.content as Post[]
+            if (data.last) {
+              this.noMorePosts = true;
+            }
+            this.posts = this.posts.concat(data.content as Post[])
+            this.loading = false;
           }
         )
       } else if (params.get('feedType') === 'user') {
-        this.postService.getUserPosts().subscribe(
+        this.postService.getUserPosts(this.pageNumber).subscribe(
           data => {
-            this.posts = data.content as Post[]
+            if (data.last) {
+              this.noMorePosts = true;
+            }
+            this.posts = this.posts.concat(data.content as Post[])
+            this.loading = false;
           }
         )
       }
@@ -40,8 +51,16 @@ export class HomeComponent implements OnInit {
     this.getPosts();
   }
 
+  loadMorePosts() {
+    this.loading = true;
+    this.pageNumber++;
+    this.getPosts();
+
+  }
 
 }
+
+
 interface GetResponsePosts {
   content: Post[];
   pageable: any;

@@ -14,13 +14,13 @@ export class PostService {
 
   postUrl = 'http://localhost:5000/api/v1/posts';
 
-  getUserPosts(): Observable<GetResponsePosts> {
+  getUserPosts(pageNumber: number): Observable<GetResponsePosts> {
     let id = localStorage.getItem('userId');
-    return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${id}&pageSize=10&pageNumber=0`);
+    return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${id}&pageSize=10&pageNumber=${pageNumber}`);
   }
 
-  getFeedPosts(): Observable<GetResponsePosts> {
-    return this.http.get<GetResponsePosts>(`${this.postUrl}/feed?pageSize=10&pageNumber=0`);
+  getFeedPosts(pageNumber: number): Observable<GetResponsePosts> {
+    return this.http.get<GetResponsePosts>(`${this.postUrl}/feed?pageSize=10&pageNumber=${pageNumber}`);
   }
 
   getReactionCount(postId: number): Observable<ReactionCountResponse> {

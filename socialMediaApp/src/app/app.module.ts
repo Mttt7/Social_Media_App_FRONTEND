@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { firebaseConfig } from './environments/firebase.environment';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -55,7 +56,8 @@ import { MessageService } from 'primeng/api';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireStorageModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    ScrollTopModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, MessageService],
   bootstrap: [AppComponent]

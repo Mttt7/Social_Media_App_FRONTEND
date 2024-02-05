@@ -4,5 +4,12 @@
         <app-post [post]="post"></app-post>
     </div>
 
+    <p-button label="Load More" [loading]="loading" (click)="loadMorePosts()" class="load-more-btn"
+        *ngIf="!noMorePosts"></p-button>
+    <div *ngIf="noMorePosts">
+        no more posts
+        <i class="fa-regular fa-face-sad-tear"></i>
+
+    </div>
 
 </div>
