@@ -10,11 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+
   posts: Post[] = [];
 
   constructor(private postService: PostService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  getPosts() {
     this.route.paramMap.subscribe((params) => {
       if (params.get('feedType') === 'feed') {
         this.postService.getFeedPosts().subscribe(
@@ -30,12 +35,9 @@ export class HomeComponent implements OnInit {
         )
       }
     })
-
-    // this.postService.getUserPosts().subscribe(
-    //   data => {
-    //     this.posts = data.content as Post[]
-    //   }
-    // )
+  }
+  refresh() {
+    this.getPosts();
   }
 
 

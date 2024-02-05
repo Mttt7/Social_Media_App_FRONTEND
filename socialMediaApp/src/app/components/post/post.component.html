@@ -4,7 +4,7 @@
     </div>
     <div class="upper-section section">
         <div class="image">
-            <img src="../../../assets/images/sample.jpg" alt="">
+            <img [src]="imageUrl" alt="" (click)="getImage()">
         </div>
         <div class="title">{{post.title}}</div>
         <div class="content">{{post.content}}</div>

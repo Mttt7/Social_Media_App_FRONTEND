@@ -1,0 +1,43 @@
+<div class="main">
+    <div class="create-post button" (click)="toggleExpand()"><i class="fa-solid fa-plus"></i>ADD POST</div>
+    <div *ngIf="expanded" class="editor" #editor>
+        <span class="p-float-label">
+            <textarea id="float-input" rows="1" cols="50" pInputTextarea [(ngModel)]="title"></textarea>
+            <i class="fa-solid fa-icons" (click)="op2.toggle($event)"></i>
+        </span>
+        <span class="p-float-label">
+            <textarea id="float-input" rows="10" cols="50" pInputTextarea [(ngModel)]="text"></textarea>
+            <i class="fa-solid fa-icons" (click)="op.toggle($event)"></i>
+        </span>
+
+        <div class="card flex justify-content-center">
+            <p-overlayPanel #op>
+                <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
+                    (emojiClick)="addEmoji($event,'content')"></emoji-mart>
+            </p-overlayPanel>
+        </div>
+        <div class="card flex justify-content-center">
+            <p-overlayPanel #op2>
+                <div>
+                    <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
+                        (emojiClick)="addEmoji($event,'title')"></emoji-mart>
+                </div>
+            </p-overlayPanel>
+        </div>
+
+        <div class="buttons">
+            <label class="image-upload-container btn btn-bwm">
+                <span>Select Image</span>
+                <input #imageInput type="file" accept="image/*" (change)="onUpload(imageInput)">
+            </label>
+
+            <div class="button" (click)="publish()">
+                Publish
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

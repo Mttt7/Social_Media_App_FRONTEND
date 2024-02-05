@@ -3,6 +3,7 @@ import { Post } from '../../models/Post';
 import { Reaction } from '../../enums/Reaction';
 import { PostService } from '../../services/post-service.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-post',
@@ -11,8 +12,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class PostComponent {
 
+
   @Input() post!: Post;
   Reaction = Reaction;
+  imageUrl: string = '';
 
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
@@ -26,7 +29,7 @@ export class PostComponent {
     }
   );
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private store: AngularFireStorage) { }
 
   ngOnInit() {
     this.postService.getReactionCount(this.post.id).subscribe(
@@ -34,6 +37,7 @@ export class PostComponent {
         this.countReaction.next(data);
       }
     )
+    this.getImage();
   }
 
   react(Reaction: Reaction) {
@@ -43,6 +47,15 @@ export class PostComponent {
 
       }
     );
+  }
+
+  getImage() {
+    if (this.post.imageUrl == null || this.post.imageUrl == '') return;
+    this.store.ref(this.post.imageUrl.toString()).getDownloadURL().subscribe(
+      url => {
+        this.imageUrl = url;
+      }
+    )
   }
 
 

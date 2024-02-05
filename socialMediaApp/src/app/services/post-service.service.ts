@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../models/Post';
 import { ReactionCountResponse } from '../models/ReactionCountResponse';
+import { PostCreateRequestPayload } from '../models/PostCreateRequestPayload';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class PostService {
 
   reactToPost(postId: number, reaction: number): Observable<ReactionCountResponse> {
     return this.http.post<ReactionCountResponse>(`${this.postUrl}/${postId}/${reaction}`, null);
+  }
+
+  addPost(post: PostCreateRequestPayload): Observable<Post> {
+    return this.http.post<Post>(this.postUrl, post);
   }
 
 }

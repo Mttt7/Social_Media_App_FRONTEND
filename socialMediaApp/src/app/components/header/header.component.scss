@@ -2,3 +2,16 @@
     height: 50px;
     background-color: dodgerblue;
 }
+
+.feed-type {
+    display: flex;
+    gap: 1rem;
+
+    div {
+        cursor: pointer;
+    }
+
+    div:hover {
+        transform: scale(1.06);
+    }
+}

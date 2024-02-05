@@ -4,8 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+
+import { firebaseConfig } from './environments/firebase.environment';
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -14,10 +23,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-import { MessageService } from 'primeng/api';
 import { HeaderComponent } from './components/header/header.component';
 import { PostComponent } from './components/post/post.component';
 import { UserBadgeComponent } from './components/user-badge/user-badge.component';
+import { AddPostEditorComponent } from './components/add-post-editor/add-post-editor.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -26,7 +36,8 @@ import { UserBadgeComponent } from './components/user-badge/user-badge.component
     HomeComponent,
     HeaderComponent,
     PostComponent,
-    UserBadgeComponent
+    UserBadgeComponent,
+    AddPostEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +47,17 @@ import { UserBadgeComponent } from './components/user-badge/user-badge.component
     InputGroupModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    InputTextareaModule,
+    PickerComponent,
+    OverlayPanelModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule,
+    FileUploadModule,
+    ToastModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
