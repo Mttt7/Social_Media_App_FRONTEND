@@ -80,3 +80,16 @@
         transform: scale(1.1);
     }
 }
+
+
+
+.more:hover {
+    cursor: pointer;
+}
+
+ul {
+    li:hover {
+        cursor: pointer;
+        transform: scale(1.01);
+    }
+}

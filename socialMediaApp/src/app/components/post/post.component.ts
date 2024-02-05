@@ -4,6 +4,7 @@ import { Reaction } from '../../enums/Reaction';
 import { PostService } from '../../services/post-service.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-post',
@@ -13,9 +14,11 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 export class PostComponent {
 
 
+
   @Input() post!: Post;
   Reaction = Reaction;
   imageUrl: string = '';
+  userId: number = -1;
 
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
@@ -29,7 +32,7 @@ export class PostComponent {
     }
   );
 
-  constructor(private postService: PostService, private store: AngularFireStorage) { }
+  constructor(private postService: PostService, private store: AngularFireStorage, private userService: UserService) { }
 
   ngOnInit() {
     this.postService.getReactionCount(this.post.id).subscribe(
@@ -37,6 +40,10 @@ export class PostComponent {
         this.countReaction.next(data);
       }
     )
+    this.userService.getUserId().subscribe(
+      data => {
+        this.userId = data;
+      })
     this.getImage();
   }
 
@@ -58,6 +65,12 @@ export class PostComponent {
     )
   }
 
+  deletePost() {
+    throw new Error('Method not implemented.');
+  }
+  editPost() {
+    throw new Error('Method not implemented.');
+  }
 
 }
 

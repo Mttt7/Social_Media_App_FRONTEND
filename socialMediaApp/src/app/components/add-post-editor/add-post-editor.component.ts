@@ -102,17 +102,20 @@ export class AddPostEditorComponent {
         this.topicId)
     ).subscribe(
       data => {
+        this.messageService.add({ severity: 'success', summary: '', detail: 'Post added', life: 3000 });
         this.refreshPage();
       }
     )
+
   }
   refreshPage() {
+    this.postAdded.emit();
+    console.log("refreshujemy");
     this.title = '';
     this.text = '';
     this.uploadedImagePath = '';
     this.uploadedFile = '';
     this.selectedFile = new ImageSnippet('', new File([''], ''));
     this.imageInput.nativeElement.value = '';
-    this.postAdded.emit();
   }
 }

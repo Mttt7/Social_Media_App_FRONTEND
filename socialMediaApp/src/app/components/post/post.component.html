@@ -3,6 +3,15 @@
         <app-user-badge [userId]="post.userId"></app-user-badge>
     </div>
     <div class="upper-section section">
+        <p-overlayPanel #op>
+            <ng-template pTemplate="content">
+                <ul>
+                    <li (click)="editPost()">Edit</li>
+                    <li (click)="deletePost()">Delete</li>
+                </ul>
+            </ng-template>
+        </p-overlayPanel>
+        <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="post.userId==userId"></i>
         <div class="image">
             <img [src]="imageUrl" alt="" (click)="getImage()">
         </div>
