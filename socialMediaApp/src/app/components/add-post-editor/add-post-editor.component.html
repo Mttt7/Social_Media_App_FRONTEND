@@ -1,15 +1,16 @@
 <div class="main">
     <div class="create-post button" (click)="toggleExpand()"><i class="fa-solid fa-plus"></i>ADD POST</div>
-    <div *ngIf="expanded" class="editor" #editor>
+    <p-dialog [(visible)]="modalVisible" [modal]="true" [draggable]="false" [resizable]="false" [closable]="true">
         <span class="p-float-label">
-            <textarea id="float-input" rows="1" cols="50" pInputTextarea [(ngModel)]="title"></textarea>
+            <textarea id="title" rows="1" cols="50" pInputTextarea [(ngModel)]="title" placeholder="title"
+                style="resize: none;"></textarea>
             <i class="fa-solid fa-icons" (click)="op2.toggle($event)"></i>
         </span>
         <span class="p-float-label">
-            <textarea id="float-input" rows="10" cols="50" pInputTextarea [(ngModel)]="text"></textarea>
+            <textarea id="content" rows="10" cols="50" pInputTextarea [(ngModel)]="text"
+                placeholder="your awesome post . . ." style="resize: none;"></textarea>
             <i class="fa-solid fa-icons" (click)="op.toggle($event)"></i>
         </span>
-
         <div class="card flex justify-content-center">
             <p-overlayPanel #op>
                 <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
@@ -24,20 +25,12 @@
                 </div>
             </p-overlayPanel>
         </div>
-
         <div class="buttons">
-            <label class="image-upload-container btn btn-bwm">
-                <span>Select Image</span>
-                <input #imageInput type="file" accept="image/*" (change)="onUpload(imageInput)">
-            </label>
-
-            <div class="button" (click)="publish()">
-                Publish
+            <input #imageInput type="file" accept="image/*" (change)="onUpload(imageInput)">
+            <div class="buttons-bot">
+                <p-button label="Cancel" severity="secondary"></p-button>
+                <p-button label="Publish" (click)="publish()"></p-button>
             </div>
         </div>
-
-
-    </div>
-
-
+    </p-dialog>
 </div>

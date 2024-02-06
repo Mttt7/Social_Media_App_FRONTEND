@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" *ngIf="!loading">
     <div class="author">
         <app-user-badge [userId]="post.userId"></app-user-badge>
     </div>
@@ -39,4 +39,9 @@
         </div>
 
     </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+
 </div>

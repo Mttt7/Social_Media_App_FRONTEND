@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post-service.service';
 import { Post } from '../../models/Post';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AddPostDialogComponent } from '../../dialogs/add-post-dialog/add-post-dialog.component';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -11,19 +14,23 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
 
 
+
   posts: Post[] = [];
   loading: boolean = false;
   pageNumber: number = 0;
   noMorePosts: boolean = false;
   refreshed: boolean = false;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) { }
+  constructor(private postService: PostService, private route: ActivatedRoute,
+    private dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.getPosts();
   }
 
   getPosts(loadmore: boolean = false) {
+
+
     this.route.paramMap.subscribe((params) => {
       if (params.get('feedType') === 'feed') {
         this.postService.getFeedPosts(this.pageNumber).subscribe(
@@ -58,6 +65,15 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     this.pageNumber++;
     this.getPosts(true);
+  }
+
+  openDialog() {
+    this.dialogService.openAddPostDialog().subscribe(
+      data => {
+        if (data == 'cancel') return
+        this.refresh();
+      }
+    )
   }
 
 }

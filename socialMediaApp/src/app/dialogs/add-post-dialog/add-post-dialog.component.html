@@ -1,0 +1,30 @@
+<p-card>
+    <span class="p-float-label">
+        <textarea id="title" rows="1" cols="50" pInputTextarea [(ngModel)]="title" placeholder="title"
+            style="resize: none;"></textarea>
+        <i class="fa-solid fa-icons" (click)="op2.toggle($event)"></i>
+    </span>
+    <span class="p-float-label">
+        <textarea id="content" rows="10" cols="50" pInputTextarea [(ngModel)]="text"
+            placeholder="your awesome post . . ." style="resize: none;"></textarea>
+        <i class="fa-solid fa-icons" (click)="op.toggle($event)"></i>
+    </span>
+
+    <p-overlayPanel #op>
+        <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
+            (emojiClick)="addEmoji($event,'content')"></emoji-mart>
+    </p-overlayPanel>
+
+    <p-overlayPanel #op2>
+        <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
+            (emojiClick)="addEmoji($event,'title')"></emoji-mart>
+    </p-overlayPanel>
+
+    <div class="buttons">
+        <input #imageInput type="file" accept="image/*" (change)="onUpload(imageInput)">
+        <div class="buttons-bot">
+            <p-button label="Cancel" severity="secondary" (click)="closeDialog()"></p-button>
+            <p-button label="Publish" (click)="publish()"></p-button>
+        </div>
+    </div>
+</p-card>

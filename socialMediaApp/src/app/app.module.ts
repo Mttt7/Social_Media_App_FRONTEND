@@ -15,7 +15,11 @@ import { ToastModule } from 'primeng/toast';
 import { firebaseConfig } from './environments/firebase.environment';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { DialogModule } from 'primeng/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { Card, CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -29,6 +33,8 @@ import { PostComponent } from './components/post/post.component';
 import { UserBadgeComponent } from './components/user-badge/user-badge.component';
 import { AddPostEditorComponent } from './components/add-post-editor/add-post-editor.component';
 import { MessageService } from 'primeng/api';
+import { AddPostDialogComponent } from './dialogs/add-post-dialog/add-post-dialog.component';
+import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,9 @@ import { MessageService } from 'primeng/api';
     HeaderComponent,
     PostComponent,
     UserBadgeComponent,
-    AddPostEditorComponent
+    AddPostEditorComponent,
+    AddPostDialogComponent,
+    EditPostDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,10 @@ import { MessageService } from 'primeng/api';
     AngularFireStorageModule,
     FileUploadModule,
     ToastModule,
-    ScrollTopModule
+    DialogModule,
+    MatDialogModule,
+    CardModule,
+    ProgressSpinnerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, MessageService],
   bootstrap: [AppComponent]

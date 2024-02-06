@@ -1,11 +1,14 @@
-import { Component, ViewChild, ElementRef, ViewEncapsulation, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { PostService } from '../../services/post-service.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';
-import { Observable, map, switchMap } from 'rxjs';
-import { PostCreateRequestPayload } from '../../models/PostCreateRequestPayload';
 import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AddPostDialogComponent } from '../add-post-dialog/add-post-dialog.component';
+import { Observable, map, switchMap } from 'rxjs';
+import { Post } from '../../models/Post';
+import { PostCreateRequestPayload } from '../../models/PostCreateRequestPayload';
 
 
 interface UploadEvent {
@@ -18,12 +21,11 @@ class ImageSnippet {
 
 
 @Component({
-  selector: 'app-add-post-editor',
-  templateUrl: './add-post-editor.component.html',
-  styleUrls: ['./add-post-editor.component.scss'],
-
+  selector: 'app-edit-post-dialog',
+  templateUrl: './edit-post-dialog.component.html',
+  styleUrl: './edit-post-dialog.component.scss'
 })
-export class AddPostEditorComponent implements OnInit {
+export class EditPostDialogComponent {
 
   uploadedFile: any;
   selectedFile!: ImageSnippet;
@@ -34,28 +36,27 @@ export class AddPostEditorComponent implements OnInit {
   expanded: boolean = false;
   modalVisible: boolean = false;
 
-  text!: string;
-  emojiShown: boolean = false;
+  text: string = '';
   title: string = '';
+  emojiShown: boolean = false;
+
 
   path: string = ''
 
+
+
   @ViewChild('editor') editor!: ElementRef;
   @ViewChild('imageInput') imageInput!: ElementRef;
-  @Output() postAdded: EventEmitter<any> = new EventEmitter();
-  @Input() _title: string = '';
-  @Input() _content: string = '';
-  @Input() _imgUrl: string = '';
-
   constructor(private postService: PostService, private store: AngularFireStorage,
-    private messageService: MessageService, private userService: UserService, private router: Router) { }
+    private messageService: MessageService, private userService: UserService, private router: Router,
+    public dialogRef: MatDialogRef<AddPostDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { post: Post }) { }
 
   ngOnInit(): void {
-    if (this._title !== '' && this._content !== '') {
-      this.title = this._title;
-      this.text = this._content;
-      if (this._imgUrl != '') this.uploadedImagePath = this._imgUrl;
-    }
+    console.log(this.data);
+    this.text = this.data.post.content;
+    this.title = this.data.post.title;
+    this.uploadedImagePath = this.data?.post?.imageUrl?.toString() || '';
   }
 
   onUpload(imageInput: any) {
@@ -64,7 +65,7 @@ export class AddPostEditorComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.getFileName().subscribe((path) => {
+      this.getFileName().subscribe((path: any) => {
         this.store.upload(path, this.selectedFile.file).then((res) => {
           this.uploadedImagePath = res.metadata.fullPath
         })
@@ -108,21 +109,22 @@ export class AddPostEditorComponent implements OnInit {
 
   publish() {
     if (this.text?.length < 2 || this.title?.length < 2) return;
-    this.postService.addPost(
+    this.postService.editPost(
       new PostCreateRequestPayload(this.title,
         this.text,
         this.uploadedImagePath,
-        this.topicId)
-    ).subscribe(
-      data => {
-        this.messageService.add({ severity: 'success', summary: '', detail: 'Post added', life: 3000 });
-        this.refreshPage();
-      }
-    )
+        this.topicId), this.data.post.id)
+      .subscribe(
+        data => {
+          this.messageService.add({ severity: 'success', summary: '', detail: 'Post edited', life: 3000 });
+          this.refreshPage();
+          this.dialogRef.close('edited');
+        }
+      )
 
   }
   refreshPage() {
-    this.postAdded.emit();
+    //this.postAdded.emit();
     this.title = '';
     this.text = '';
     this.uploadedImagePath = '';
@@ -130,4 +132,9 @@ export class AddPostEditorComponent implements OnInit {
     this.selectedFile = new ImageSnippet('', new File([''], ''));
     this.imageInput.nativeElement.value = '';
   }
+
+  closeDialog() {
+    this.dialogRef.close('cancel');
+  }
+
 }

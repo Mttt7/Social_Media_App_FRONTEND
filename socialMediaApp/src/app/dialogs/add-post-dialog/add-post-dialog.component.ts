@@ -1,3 +1,4 @@
+
 import { Component, ViewChild, ElementRef, ViewEncapsulation, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { PostService } from '../../services/post-service.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -6,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { PostCreateRequestPayload } from '../../models/PostCreateRequestPayload';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 interface UploadEvent {
@@ -16,14 +18,12 @@ class ImageSnippet {
   constructor(public src: string, public file: File) { }
 }
 
-
 @Component({
-  selector: 'app-add-post-editor',
-  templateUrl: './add-post-editor.component.html',
-  styleUrls: ['./add-post-editor.component.scss'],
-
+  selector: 'app-add-post-dialog',
+  templateUrl: './add-post-dialog.component.html',
+  styleUrl: './add-post-dialog.component.scss'
 })
-export class AddPostEditorComponent implements OnInit {
+export class AddPostDialogComponent {
 
   uploadedFile: any;
   selectedFile!: ImageSnippet;
@@ -40,22 +40,16 @@ export class AddPostEditorComponent implements OnInit {
 
   path: string = ''
 
+
+
   @ViewChild('editor') editor!: ElementRef;
   @ViewChild('imageInput') imageInput!: ElementRef;
-  @Output() postAdded: EventEmitter<any> = new EventEmitter();
-  @Input() _title: string = '';
-  @Input() _content: string = '';
-  @Input() _imgUrl: string = '';
-
   constructor(private postService: PostService, private store: AngularFireStorage,
-    private messageService: MessageService, private userService: UserService, private router: Router) { }
+    private messageService: MessageService, private userService: UserService, private router: Router,
+    public dialogRef: MatDialogRef<AddPostDialogComponent>) { }
 
   ngOnInit(): void {
-    if (this._title !== '' && this._content !== '') {
-      this.title = this._title;
-      this.text = this._content;
-      if (this._imgUrl != '') this.uploadedImagePath = this._imgUrl;
-    }
+
   }
 
   onUpload(imageInput: any) {
@@ -117,17 +111,22 @@ export class AddPostEditorComponent implements OnInit {
       data => {
         this.messageService.add({ severity: 'success', summary: '', detail: 'Post added', life: 3000 });
         this.refreshPage();
+        this.dialogRef.close('added');
       }
     )
 
   }
   refreshPage() {
-    this.postAdded.emit();
+    //this.postAdded.emit();
     this.title = '';
     this.text = '';
     this.uploadedImagePath = '';
     this.uploadedFile = '';
     this.selectedFile = new ImageSnippet('', new File([''], ''));
     this.imageInput.nativeElement.value = '';
+  }
+
+  closeDialog() {
+    this.dialogRef.close('cancel');
   }
 }
