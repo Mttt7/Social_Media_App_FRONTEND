@@ -31,7 +31,6 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PostComponent } from './components/post/post.component';
 import { UserBadgeComponent } from './components/user-badge/user-badge.component';
-import { AddPostEditorComponent } from './components/add-post-editor/add-post-editor.component';
 import { MessageService } from 'primeng/api';
 import { AddPostDialogComponent } from './dialogs/add-post-dialog/add-post-dialog.component';
 import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-dialog.component';
@@ -44,7 +43,6 @@ import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-di
     HeaderComponent,
     PostComponent,
     UserBadgeComponent,
-    AddPostEditorComponent,
     AddPostDialogComponent,
     EditPostDialogComponent
   ],
