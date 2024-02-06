@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../../models/Post';
 import { Reaction } from '../../enums/Reaction';
 import { PostService } from '../../services/post-service.service';
@@ -16,6 +16,7 @@ export class PostComponent {
 
 
   @Input() post!: Post;
+  @Output() postDeleted: EventEmitter<any> = new EventEmitter();
   Reaction = Reaction;
   imageUrl: string = '';
   userId: number = -1;
@@ -66,7 +67,11 @@ export class PostComponent {
   }
 
   deletePost() {
-    throw new Error('Method not implemented.');
+    this.postService.deletePost(this.post.id).subscribe(
+      data => {
+        this.postDeleted.emit();
+      }
+    )
   }
   editPost() {
     throw new Error('Method not implemented.');

@@ -34,6 +34,9 @@ export class PostService {
   addPost(post: PostCreateRequestPayload): Observable<Post> {
     return this.http.post<Post>(this.postUrl, post);
   }
+  deletePost(postId: number): Observable<any> {
+    return this.http.delete(`${this.postUrl}/${postId}`);
+  }
 
 }
 

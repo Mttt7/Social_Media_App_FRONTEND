@@ -23,20 +23,15 @@ export class HomeComponent implements OnInit {
     this.getPosts();
   }
 
-  getPosts() {
-
+  getPosts(loadmore: boolean = false) {
     this.route.paramMap.subscribe((params) => {
       if (params.get('feedType') === 'feed') {
         this.postService.getFeedPosts(this.pageNumber).subscribe(
           data => {
-            if (data.last) {
-              this.noMorePosts = true;
-            }
-            if (this.refreshed) {
-              this.posts = data.content as Post[];
-            } else {
-              this.posts = this.posts.concat(data.content as Post[])
-            }
+            if (data.last) this.noMorePosts = true
+
+            if (loadmore) this.posts = this.posts.concat(data.content as Post[])
+            else this.posts = data.content as Post[];
 
             this.loading = false;
           }
@@ -44,15 +39,11 @@ export class HomeComponent implements OnInit {
       } else if (params.get('feedType') === 'user') {
         this.postService.getUserPosts(this.pageNumber).subscribe(
           data => {
-            if (data.last) {
-              this.noMorePosts = true;
-            }
-            if (this.refreshed) {
-              this.posts = data.content as Post[];
-            } else {
-              this.posts = this.posts.concat(data.content as Post[])
-            }
-            this.posts = this.posts.concat(data.content as Post[])
+            if (data.last) this.noMorePosts = true;
+
+            if (loadmore) this.posts = this.posts.concat(data.content as Post[])
+            else this.posts = data.content as Post[];
+
             this.loading = false;
           }
         )
@@ -60,14 +51,13 @@ export class HomeComponent implements OnInit {
     })
   }
   refresh() {
-    this.refreshed = true;
     this.getPosts();
   }
 
   loadMorePosts() {
     this.loading = true;
     this.pageNumber++;
-    this.getPosts();
+    this.getPosts(true);
   }
 
 }

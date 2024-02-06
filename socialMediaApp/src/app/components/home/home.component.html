@@ -5,7 +5,7 @@
     </div>
 
     <div *ngFor="let post of posts" class="posts">
-        <app-post [post]="post"></app-post>
+        <app-post [post]="post" (postDeleted)="refresh()"></app-post>
     </div>
 
     <p-button label="Load More" [loading]="loading" (click)="loadMorePosts()" class="load-more-btn"

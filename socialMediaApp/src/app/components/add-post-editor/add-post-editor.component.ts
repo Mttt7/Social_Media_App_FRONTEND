@@ -110,7 +110,6 @@ export class AddPostEditorComponent {
   }
   refreshPage() {
     this.postAdded.emit();
-    console.log("refreshujemy");
     this.title = '';
     this.text = '';
     this.uploadedImagePath = '';
