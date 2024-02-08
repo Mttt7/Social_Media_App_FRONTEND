@@ -14,9 +14,13 @@ export class PostService {
 
   postUrl = 'http://localhost:5000/api/v1/posts';
 
-  getUserPosts(pageNumber: number): Observable<GetResponsePosts> {
+  getLoggedUserPosts(pageNumber: number): Observable<GetResponsePosts> {
     let id = localStorage.getItem('userId');
     return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${id}&pageSize=10&pageNumber=${pageNumber}`);
+  }
+
+  getUserPosts(userId: number, pageNumber: number): Observable<GetResponsePosts> {
+    return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${userId}&pageSize=10&pageNumber=${pageNumber}`);
   }
 
   getFeedPosts(pageNumber: number): Observable<GetResponsePosts> {

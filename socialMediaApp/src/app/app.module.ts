@@ -19,6 +19,8 @@ import { DialogModule } from 'primeng/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Card, CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 import { ButtonModule } from 'primeng/button';
@@ -34,6 +36,8 @@ import { UserBadgeComponent } from './components/user-badge/user-badge.component
 import { MessageService } from 'primeng/api';
 import { AddPostDialogComponent } from './dialogs/add-post-dialog/add-post-dialog.component';
 import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-dialog.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,8 @@ import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-di
     PostComponent,
     UserBadgeComponent,
     AddPostDialogComponent,
-    EditPostDialogComponent
+    EditPostDialogComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -66,9 +71,13 @@ import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-di
     DialogModule,
     MatDialogModule,
     CardModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    SplitButtonModule,
+    TabMenuModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }, MessageService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

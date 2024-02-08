@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         }
       )
     } else if (feedType === 'user') {
-      this.postService.getUserPosts(this.pageNumber).subscribe(
+      this.postService.getLoggedUserPosts(this.pageNumber).subscribe(
         data => {
           if (data.last) this.noMorePosts = true;
 

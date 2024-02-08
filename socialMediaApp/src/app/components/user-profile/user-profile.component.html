@@ -1,0 +1,49 @@
+<div class="main">
+    <div> {{selfId}}</div>
+    <div class="upper-section" [style.backgroundImage]="'url(' +user.backgroundUrl+')'">
+        <div class="profile-photo">
+            <img [src]="user.photoUrl">
+        </div>
+        <div class="info">
+            <div class="full-name">
+                <div class="name">{{user.firstName}} {{user.lastName}}</div>
+                <div class="username">&#64;{{user.username}}</div>
+            </div>
+
+            <div class="about">"{{user.about}}"</div>
+            <div class="phone"> {{user.phone}}</div>
+            <div class="website">With us since: {{user.createdAt | date: 'MM-yyyy'}} </div>
+        </div>
+
+        <div class="add-friend" *ngIf="!self">
+            <p-button label="Add friend" *ngIf="status==='STRANGER'" (click)="sendRequest()"></p-button>
+            <p-splitButton label="Respond" *ngIf="status==='RECEIVED'" icon="pi pi-plus"
+                [model]="respondRequestItems"></p-splitButton>
+            <p-button label="Request sent" *ngIf="status==='SENT'"></p-button>
+            <p-splitButton label="Friend" *ngIf="status==='FRIEND'" icon="pi pi-plus"
+                [model]="editFriendshipItems"></p-splitButton>
+
+        </div>
+
+
+    </div>
+    <p-tabMenu [model]="menuItems" [activeItem]="activeMenuItem"></p-tabMenu>
+    <div class="content">
+
+        <div class="main-content">
+            <div class="posts" *ngIf="activeMenuItem.id==='posts'">
+                <app-post *ngFor="let post of userPosts" [post]="post" class="post"></app-post>
+            </div>
+
+            <p-button label="Load More" (click)="loadMorePosts()" class="load-more-btn" *ngIf="!noMorePosts"></p-button>
+            <div *ngIf="noMorePosts">
+                no more posts
+                <i class="fa-regular fa-face-sad-tear"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>

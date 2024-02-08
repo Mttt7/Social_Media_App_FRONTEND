@@ -1,6 +1,7 @@
 <div class="post" *ngIf="!loading">
     <div class="author">
-        <app-user-badge [userId]="post.userId"></app-user-badge>
+        <app-user-badge [userId]="post.userId" [routerLink]="['/users', post.userId]"
+            [queryParams]="{tab: 'posts'}"></app-user-badge>
     </div>
     <div class="upper-section section">
         <p-overlayPanel #op>

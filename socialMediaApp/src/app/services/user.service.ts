@@ -8,13 +8,15 @@ import { UserProfile } from '../models/UserProfile';
 })
 export class UserService {
 
+  userUrl = 'http://localhost:5000/api/v1/user';
+
   constructor(private http: HttpClient) { }
 
   getUserId(): Observable<number> {
-    return this.http.get<number>('http://localhost:5000/api/v1/user/userId');
+    return this.http.get<number>(this.userUrl + '/userId');
   }
 
   getUserProfileById(userId: number): Observable<UserProfile> {
-    return this.http.get<UserProfile>(`http://localhost:5000/api/v1/user/${userId}`);
+    return this.http.get<UserProfile>(this.userUrl + `/${userId}`);
   }
 }
