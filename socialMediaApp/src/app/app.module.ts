@@ -38,6 +38,7 @@ import { AddPostDialogComponent } from './dialogs/add-post-dialog/add-post-dialo
 import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-dialog.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
     UserBadgeComponent,
     AddPostDialogComponent,
     EditPostDialogComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

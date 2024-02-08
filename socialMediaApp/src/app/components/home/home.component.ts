@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit {
           this.loading = false;
         }
       )
-    } else if (feedType === 'user') {
-      this.postService.getLoggedUserPosts(this.pageNumber).subscribe(
+    } else if (feedType === 'friends') {
+      this.postService.getFriendsPosts(this.pageNumber).subscribe(
         data => {
           if (data.last) this.noMorePosts = true;
 

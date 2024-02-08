@@ -22,4 +22,8 @@ export class AuthService {
     localStorage.setItem('jwtToken', token.accessToken);
   }
 
+  logout() {
+    localStorage.removeItem('jwtToken');
+  }
+
 }

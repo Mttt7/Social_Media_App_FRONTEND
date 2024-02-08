@@ -10,6 +10,7 @@ import { PostCreateRequestPayload } from '../models/PostCreateRequestPayload';
 })
 export class PostService {
 
+
   constructor(private http: HttpClient) { }
 
   postUrl = 'http://localhost:5000/api/v1/posts';
@@ -21,6 +22,9 @@ export class PostService {
 
   getUserPosts(userId: number, pageNumber: number): Observable<GetResponsePosts> {
     return this.http.get<GetResponsePosts>(`${this.postUrl}?id=${userId}&pageSize=10&pageNumber=${pageNumber}`);
+  }
+  getFriendsPosts(pageNumber: number): Observable<GetResponsePosts> {
+    return this.http.get<GetResponsePosts>(`${this.postUrl}/friends?pageSize=10&pageNumber=${pageNumber}`);
   }
 
   getFeedPosts(pageNumber: number): Observable<GetResponsePosts> {
