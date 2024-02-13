@@ -51,7 +51,6 @@ export class UserProfileComponent implements OnInit {
       label: 'Posts', icon: 'fa-solid fa-house', command: () => {
         this.router.navigate([], { queryParams: { tab: 'posts' } });
         this.activeMenuItem = this.menuItems[0];
-        console.log(this.activeMenuItem);
       }, id: 'posts'
     },
     {
@@ -120,7 +119,6 @@ export class UserProfileComponent implements OnInit {
   getStatus() {
     this.friendshipService.getStatus(this.userId).subscribe((status) => {
       this.status = status.message
-      console.log(this.status);
     })
   }
 

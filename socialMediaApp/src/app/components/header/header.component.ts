@@ -22,7 +22,7 @@ export class HeaderComponent {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.notificationsNumber = 5; //*get from service
+
     this.items = [
       { label: 'Home', icon: 'fa-solid fa-house', command: () => this.router.navigateByUrl('/home/feed') },
       { label: 'Friends Activity', icon: 'fa-solid fa-user-group', command: () => this.router.navigateByUrl('/home/friends') },
@@ -48,10 +48,6 @@ export class HeaderComponent {
       }
     ];
 
-
-
-
-
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -64,9 +60,6 @@ export class HeaderComponent {
           this.activeItem = this.items[1];
         } else if (event.urlAfterRedirects.startsWith('/users')
           && event.urlAfterRedirects === '/users/' + userId) {
-          console.log(event.urlAfterRedirects);
-          console.log('/users/' + userId);
-          console.log(userId)
           this.activeItem = this.items[2];
         } else if (event.urlAfterRedirects.startsWith('/users')
           && event.urlAfterRedirects !== '/users/' + userId) {

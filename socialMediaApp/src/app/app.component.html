@@ -1,4 +1,7 @@
 <div class="main">
+  <div class="messages">
+    <p-messages [closable]="false"></p-messages>
+  </div>
   <app-header *ngIf="!login"></app-header>
   <router-outlet></router-outlet>
 </div>

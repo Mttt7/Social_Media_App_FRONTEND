@@ -3,3 +3,9 @@
     width: 100vw;
     overflow: hidden;
 }
+
+.messages {
+    position: fixed;
+    right: 5rem;
+    z-index: 1000;
+}

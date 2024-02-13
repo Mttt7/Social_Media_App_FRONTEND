@@ -53,7 +53,6 @@ export class EditPostDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { post: Post }) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.text = this.data.post.content;
     this.title = this.data.post.title;
     this.uploadedImagePath = this.data?.post?.imageUrl?.toString() || '';

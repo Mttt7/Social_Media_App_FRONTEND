@@ -1,1 +1,41 @@
-<p>settings works!</p>
+<div class="main">
+    <div class="accordion">
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Images">
+                <div style="display: flex;flex-direction: column;gap: 2rem;">
+                    <div class="profile-photo media">
+                        <div style="margin-right: auto;">Profile photo</div>
+                        <img [src]="user?.photoUrl" class="preview">
+                        <input #profileImage type="file" accept="image/*"
+                            (change)="onUpload(profileImage,'profilePhoto')">
+                        <p-button label="Submit" (click)="submit('profilePhoto')"></p-button>
+                    </div>
+                    <div class="background-photo media">
+                        <div style="margin-right: auto;">Background photo</div>
+                        <img [src]="user?.backgroundUrl" class="preview">
+                        <input #backgroundImage type="file" accept="image/*"
+                            (change)="onUpload(backgroundImage,'backgroundPhoto')">
+                        <p-button label="Submit" (click)="submit('backgroundPhoto')"></p-button>
+                    </div>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab header="Name & Bio">
+                <div style="display: flex;flex-direction: column;gap: .3rem;margin-bottom: .2rem;">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" pInputText [(ngModel)]="firstName" />
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" pInputText [(ngModel)]="lastName" />
+                    <label for="username">Username</label>
+                    <input type="text" id="username" pInputText [(ngModel)]="username"
+                        pTooltip="You cannot change your username" disabled />
+
+                    <label for="bio">Bio</label>
+                    <input type="text" id="bio" pInputText [(ngModel)]="bio" />
+
+                </div>
+                <p-button label="Submit" (click)="submit('name')"></p-button>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+</div>

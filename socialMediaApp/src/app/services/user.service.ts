@@ -19,4 +19,11 @@ export class UserService {
   getUserProfileById(userId: number): Observable<UserProfile> {
     return this.http.get<UserProfile>(this.userUrl + `/${userId}`);
   }
+
+  //getUserProfile(): Observable<UserProfile> {}
+
+
+  updateUserProfile(user: any): Observable<UserProfile> { //zmienic na odpowiednie!!
+    return this.http.patch<any>(this.userUrl, user);
+  }
 }

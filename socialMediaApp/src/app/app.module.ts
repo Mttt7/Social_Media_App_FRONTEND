@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +21,9 @@ import { Card, CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { AccordionModule } from 'primeng/accordion';
+import { InputTextModule } from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -75,7 +77,10 @@ import { SettingsComponent } from './components/settings/settings.component';
     CardModule,
     ProgressSpinnerModule,
     SplitButtonModule,
-    TabMenuModule
+    TabMenuModule,
+    AccordionModule,
+    InputTextModule,
+    TooltipModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
