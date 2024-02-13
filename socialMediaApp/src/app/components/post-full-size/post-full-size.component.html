@@ -1,0 +1,72 @@
+<div class="main">
+    <div class="post" *ngIf="!loading">
+        <p-overlayPanel #op>
+            <ng-template pTemplate="content">
+                <ul>
+                    <li (click)="editPost()">Edit</li>
+                    <li (click)="deletePost()">Delete</li>
+                </ul>
+            </ng-template>
+        </p-overlayPanel>
+
+        <div class="author">
+            <app-user-badge [userId]="post.userId" [routerLink]="['/users', post.userId]"
+                [queryParams]="{tab: 'posts'}"></app-user-badge>
+
+            <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="post.userId==userId"></i>
+        </div>
+        <div class="date"> {{ post.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
+        <div class="upper-section section">
+            <div class="title">{{post.title}}</div>
+            <div class="image">
+                <a [href]="imageUrl">
+                    <img [src]="imageUrl" alt="" (click)="getImage()">
+                </a>
+            </div>
+
+            <div class="content">{{post.content}}</div>
+        </div>
+        <span class="divider"></span>
+        <div class="bot-section section">
+            <div class="reactions">
+                <div class="add-reaction">
+                    <div class="like reaction" (click)="react(reaction.LIKE)">
+                        <div class="emoji">👍</div>{{(countReaction |
+                        async)?.like}}
+                    </div>
+                    <div class="love reaction" (click)="react(reaction.LOVE)">
+                        <div class="emoji">❤️</div>{{(countReaction |
+                        async)?.love}}
+                    </div>
+                    <div class="haha reaction" (click)="react(reaction.HAHA)">
+                        <div class="emoji">😄</div>
+                        {{(countReaction | async)?.haha}}
+                    </div>
+                    <div class="sad reaction" (click)="react(reaction.SAD)">
+                        <div class="emoji">😢</div>{{(countReaction
+                        | async)?.sad}}
+                    </div>
+                    <div class="angry reaction" (click)="react(reaction.ANGRY)">
+                        <div class="emoji">😠</div>
+                        {{(countReaction | async)?.angry}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+
+    </div>
+
+
+
+    <div class="comments">
+        this will be comments
+
+    </div>
+
+</div>

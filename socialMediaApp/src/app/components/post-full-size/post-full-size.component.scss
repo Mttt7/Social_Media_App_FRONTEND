@@ -1,0 +1,116 @@
+.main {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background-color: #242527;
+    padding-top: 3rem;
+    padding-bottom: 10rem;
+}
+
+
+
+.post,
+.comments {
+    width: 80%;
+    color: white;
+    background-color: #121212;
+    border-radius: 10px;
+    padding: .6rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        max-height: 400px;
+        max-width: 80%;
+        border-radius: 3px;
+    }
+}
+
+.add-reaction {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.reactions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.emoji {
+    font-size: 2.3rem;
+}
+
+.emoji:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    margin: .4rem 0;
+    color: white;
+}
+
+.divider {
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #cccccc29;
+    border-radius: 100px;
+    margin: 10px 0;
+}
+
+.upper-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.author {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.fa-bars {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 1rem;
+}
+
+.content {
+    text-align: left;
+    width: 90%;
+    padding: 1rem;
+}

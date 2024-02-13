@@ -1,12 +1,30 @@
 .post {
     width: 500px;
-    height: 120%;
+    height: 100%;
     color: white;
+    background-color: #121212;
+    border-radius: 10px;
+    padding: .6rem;
 }
 
-.section {
-    background-color: #121212;
-    padding: 1rem;
+.divider {
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #cccccc29;
+    border-radius: 100px;
+    margin: 10px 0;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: auto;
+}
+
+.fa-bars.more {
+    font-size: 1.5rem;
+    margin-right: .6rem;
 }
 
 .upper-section {
@@ -17,6 +35,7 @@
 }
 
 .bot-section {
+    margin-top: auto;
     border-radius: 0px 0px 12px 12px;
 }
 
@@ -47,6 +66,13 @@
     margin: .4rem 0;
 }
 
+.date {
+    font-style: italic;
+    font-size: .8rem;
+    margin-left: 2rem;
+    color: rgba(209, 193, 193, 0.614);
+}
+
 .add-reaction {
     display: flex;
     align-items: center;
@@ -63,11 +89,26 @@
     }
 }
 
-.reaction {
+.reactions {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji {
+    font-size: 1.5rem;
+}
+
+.emoji:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .comment {

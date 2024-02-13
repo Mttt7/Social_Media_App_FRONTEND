@@ -1,42 +1,54 @@
 <div class="post" *ngIf="!loading">
+    <p-overlayPanel #op>
+        <ng-template pTemplate="content">
+            <ul>
+                <li (click)="editPost()">Edit</li>
+                <li (click)="deletePost()">Delete</li>
+            </ul>
+        </ng-template>
+    </p-overlayPanel>
+
     <div class="author">
         <app-user-badge [userId]="post.userId" [routerLink]="['/users', post.userId]"
             [queryParams]="{tab: 'posts'}"></app-user-badge>
-    </div>
-    <div class="upper-section section">
-        <p-overlayPanel #op>
-            <ng-template pTemplate="content">
-                <ul>
-                    <li (click)="editPost()">Edit</li>
-                    <li (click)="deletePost()">Delete</li>
-                </ul>
-            </ng-template>
-        </p-overlayPanel>
         <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="post.userId==userId"></i>
-        <div class="image">
+    </div>
+    <div class="date"> {{ post.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
+    <div class="upper-section section">
+        <div class="title">{{post.title}}</div>
+        <div class="image" [routerLink]="['/posts', post.id]">
             <img [src]="imageUrl" alt="" (click)="getImage()">
         </div>
-        <div class="title">{{post.title}}</div>
+
         <div class="content">{{post.content}}</div>
     </div>
+    <span class="divider"></span>
     <div class="bot-section section">
-        <div class="reaction">
-            <div class="reaction-count">{{(countReaction | async)?.overall}}</div>
+        <div class="reactions">
             <div class="add-reaction">
-                <div class="like" (click)="react(Reaction.LIKE)"><i class="fa-solid fa-thumbs-up"></i>{{(countReaction |
-                    async)?.like}}</div>
-                <div class="love" (click)="react(Reaction.LOVE)"><i class="fa-solid fa-heart"></i>{{(countReaction |
+                <div class="like reaction" (click)="react(reaction.LIKE)">
+                    <div class="emoji">👍</div>{{(countReaction |
+                    async)?.like}}
+                </div>
+                <div class="love reaction" (click)="react(reaction.LOVE)">
+                    <div class="emoji">❤️</div>{{(countReaction |
                     async)?.love}}
                 </div>
-                <div class="haha" (click)="react(Reaction.HAHA)"><i
-                        class="fa-solid fa-face-laugh-squint"></i>{{(countReaction | async)?.haha}}</div>
-                <div class="sad" (click)="react(Reaction.SAD)"><i class="fa-solid fa-face-sad-tear"></i>{{(countReaction
-                    | async)?.sad}}</div>
-                <div class="angry" (click)="react(Reaction.ANGRY)"><i
-                        class="fa-solid fa-face-angry"></i>{{(countReaction | async)?.angry}}</div>
+                <div class="haha reaction" (click)="react(reaction.HAHA)">
+                    <div class="emoji">😄</div>
+                    {{(countReaction | async)?.haha}}
+                </div>
+                <div class="sad reaction" (click)="react(reaction.SAD)">
+                    <div class="emoji">😢</div>{{(countReaction
+                    | async)?.sad}}
+                </div>
+                <div class="angry reaction" (click)="react(reaction.ANGRY)">
+                    <div class="emoji">😠</div>
+                    {{(countReaction | async)?.angry}}
+                </div>
 
             </div>
-            <div class="comment"><i class="fa-regular fa-comment"></i></div>
+            <div class="comment" [routerLink]="['/posts', post.id]"><i class="fa-regular fa-comment"></i></div>
         </div>
 
     </div>

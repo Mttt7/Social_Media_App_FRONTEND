@@ -24,6 +24,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
+import { DividerModule } from 'primeng/divider';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -41,6 +42,7 @@ import { EditPostDialogComponent } from './dialogs/edit-post-dialog/edit-post-di
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { SettingsComponent } from './components/settings/settings.component';
+import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     AddPostDialogComponent,
     EditPostDialogComponent,
     UserProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    PostFullSizeComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     TabMenuModule,
     AccordionModule,
     InputTextModule,
-    TooltipModule
+    TooltipModule,
+    DividerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },

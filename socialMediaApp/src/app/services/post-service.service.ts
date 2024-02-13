@@ -49,6 +49,11 @@ export class PostService {
     return this.http.delete(`${this.postUrl}/${postId}`);
   }
 
+  getPostById(postId: number): Observable<Post> {
+    return this.http.get<Post>(`${this.postUrl}/${postId}`);
+
+  }
+
 }
 
 interface GetResponsePosts {

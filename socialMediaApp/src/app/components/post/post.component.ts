@@ -6,6 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserService } from '../../services/user.service';
 import { DialogService } from '../../services/dialog.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-post',
@@ -21,7 +22,7 @@ export class PostComponent {
   @Output() postEdited: EventEmitter<any> = new EventEmitter();
 
 
-  Reaction = Reaction;
+  reaction = Reaction;
   imageUrl: string = '';
   userId: number = -1;
   loading: boolean = false;
@@ -39,7 +40,7 @@ export class PostComponent {
   );
 
   constructor(private postService: PostService, private store: AngularFireStorage, private userService: UserService,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService, private commonService: CommonService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -65,16 +66,13 @@ export class PostComponent {
   }
 
   getImage() {
-    if (this.post.imageUrl == null || this.post.imageUrl == '') {
-      this.loading = false;
-      return;
-    }
-    this.store.ref(this.post.imageUrl.toString()).getDownloadURL().subscribe(
-      url => {
-        this.imageUrl = url;
+    this.commonService.getImageFromStore(this.post.imageUrl).subscribe(
+      data => {
+        this.imageUrl = data;
         this.loading = false;
       }
     )
+
   }
 
   deletePost() {
