@@ -73,33 +73,28 @@
     color: rgba(209, 193, 193, 0.614);
 }
 
+
 .add-reaction {
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .3rem;
-
-    i {
-        font-size: 1.6rem;
-    }
-
-    i:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-    }
+    background-color: white;
+    border-radius: 14px;
+    padding: .5rem;
 }
 
 .reactions {
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .reaction {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
 .emoji {
@@ -112,6 +107,8 @@
 }
 
 .comment {
+
+
     i {
         font-size: 2rem;
     }

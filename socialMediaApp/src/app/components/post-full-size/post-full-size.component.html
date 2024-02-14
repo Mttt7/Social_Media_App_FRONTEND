@@ -64,9 +64,18 @@
 
 
 
-    <div class="comments">
-        this will be comments
+    <div class="add-comments">
+        <textarea id="content" rows="4" cols="50" pInputTextarea [(ngModel)]="commentContent"
+            placeholder="your awesome comment . . ." style="resize: none;"></textarea>
+        <p-button label="Submit" (click)="addComment()"></p-button>
+    </div>
 
+    <div class="comments">
+        <div *ngFor="let comment of comments" class="comment">
+            <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
+            <div class="content-comment">{{comment.content}}</div>
+            <span class="divider"></span>
+        </div>
     </div>
 
 </div>

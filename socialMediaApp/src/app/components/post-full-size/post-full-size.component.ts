@@ -9,6 +9,8 @@ import { Reaction } from '../../enums/Reaction';
 import { DialogService } from '../../services/dialog.service';
 import { UserService } from '../../services/user.service';
 import { CommonService } from '../../services/common.service';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../models/Comment';
 
 
 interface CountReaction {
@@ -18,6 +20,19 @@ interface CountReaction {
   haha: number,
   sad: number,
   angry: number,
+}
+interface CommentRespone {
+  content: Comment[],
+  totalElements: number,
+  totalPages: number,
+  last: boolean,
+  size: number,
+  number: number,
+  sort: any,
+  first: boolean,
+  numberOfElements: number,
+  empty: boolean
+
 }
 
 
@@ -33,14 +48,16 @@ export class PostFullSizeComponent implements OnInit {
   imageUrl: string = '';
   loading: boolean = false;
   postId: number = -1;
-
   userId: number = -1;
 
+  commentContent = ''
+
   post!: Post;
+  comments: Comment[] = [];
 
   constructor(private postService: PostService, private route: ActivatedRoute,
     private dialogService: DialogService, private userService: UserService, private commonService: CommonService,
-    private router: Router) { }
+    private router: Router, private commentService: CommentService) { }
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
     {
@@ -60,6 +77,7 @@ export class PostFullSizeComponent implements OnInit {
         this.postId = params['id'];
         this.getPost();
         this.getReactionCount();
+        this.getComments();
       }
     )
     this.userService.getUserId().subscribe(
@@ -68,6 +86,15 @@ export class PostFullSizeComponent implements OnInit {
       }
     )
 
+  }
+
+  getComments() {
+    this.commentService.getComments(this.postId).subscribe(
+      data => {
+        console.log(data);
+        this.comments = data.content;
+      }
+    )
   }
 
   getReactionCount() {
@@ -118,6 +145,15 @@ export class PostFullSizeComponent implements OnInit {
     this.dialogService.openEditPostDialog(this.post).subscribe(
       data => {
         this.getPost();
+      }
+    )
+  }
+
+  addComment() {
+    this.commentService.addComment(this.postId, this.commentContent).subscribe(
+      data => {
+        this.getComments();
+        this.commentContent = '';
       }
     )
   }
