@@ -80,8 +80,7 @@
 
     <div class="comments">
         <div *ngFor="let comment of comments" class="comment">
-            <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
-            <div class="content-comment">{{comment.content}}</div>
+            <app-comment [comment]="comment"></app-comment>
             <span class="divider"></span>
         </div>
     </div>

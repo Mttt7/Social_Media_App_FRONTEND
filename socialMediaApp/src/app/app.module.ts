@@ -43,6 +43,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PostFullSizeComponent } from './components/post-full-size/post-full-siz
     EditPostDialogComponent,
     UserProfileComponent,
     SettingsComponent,
-    PostFullSizeComponent
+    PostFullSizeComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

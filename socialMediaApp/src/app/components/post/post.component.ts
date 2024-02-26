@@ -8,6 +8,17 @@ import { UserService } from '../../services/user.service';
 import { DialogService } from '../../services/dialog.service';
 import { CommonService } from '../../services/common.service';
 
+
+interface CountReaction {
+  overall: number,
+  like: number,
+  love: number,
+  haha: number,
+  sad: number,
+  angry: number,
+}
+
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -56,8 +67,8 @@ export class PostComponent {
     this.getImage();
   }
 
-  react(Reaction: Reaction) {
-    this.postService.reactToPost(this.post.id, Reaction).subscribe(
+  react(reaction: Reaction) {
+    this.postService.reactToPost(this.post.id, reaction).subscribe(
       data => {
         this.countReaction.next(data);
 
@@ -92,11 +103,3 @@ export class PostComponent {
 
 }
 
-interface CountReaction {
-  overall: number,
-  like: number,
-  love: number,
-  haha: number,
-  sad: number,
-  angry: number,
-}

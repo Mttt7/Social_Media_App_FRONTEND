@@ -1,0 +1,39 @@
+.comment {
+    padding: .2rem;
+}
+
+.content-comment {
+    padding: 1rem;
+}
+
+.add-reaction {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 14px;
+    padding: .5rem;
+}
+
+.reactions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.emoji {
+    font-size: 1.5rem;
+}
+
+.emoji:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}

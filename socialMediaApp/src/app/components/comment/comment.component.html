@@ -1,0 +1,31 @@
+<div class="comment">
+    <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
+    <div class="content-comment">{{comment.content}}</div>
+
+    <div class="reactions">
+        <div class="add-reaction">
+            <div class="like reaction" (click)="react(reaction.LIKE)">
+                <div class="emoji">👍</div>{{(countReaction |
+                async)?.like}}
+            </div>
+            <div class="love reaction" (click)="react(reaction.LOVE)">
+                <div class="emoji">❤️</div>{{(countReaction |
+                async)?.love}}
+            </div>
+            <div class="haha reaction" (click)="react(reaction.HAHA)">
+                <div class="emoji">😄</div>
+                {{(countReaction | async)?.haha}}
+            </div>
+            <div class="sad reaction" (click)="react(reaction.SAD)">
+                <div class="emoji">😢</div>{{(countReaction
+                | async)?.sad}}
+            </div>
+            <div class="angry reaction" (click)="react(reaction.ANGRY)">
+                <div class="emoji">😠</div>
+                {{(countReaction | async)?.angry}}
+            </div>
+
+        </div>
+
+    </div>
+</div>
