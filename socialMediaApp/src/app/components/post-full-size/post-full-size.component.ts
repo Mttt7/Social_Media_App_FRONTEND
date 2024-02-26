@@ -55,6 +55,9 @@ export class PostFullSizeComponent implements OnInit {
   post!: Post;
   comments: Comment[] = [];
 
+  pageNumber: number = 0;
+  noMoreComments = false;
+
   constructor(private postService: PostService, private route: ActivatedRoute,
     private dialogService: DialogService, private userService: UserService, private commonService: CommonService,
     private router: Router, private commentService: CommentService) { }
@@ -71,6 +74,8 @@ export class PostFullSizeComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.pageNumber = 0;
+    this.noMoreComments = false;
     this.loading = true;
     this.route.params.subscribe(
       params => {
@@ -88,13 +93,22 @@ export class PostFullSizeComponent implements OnInit {
 
   }
 
-  getComments() {
-    this.commentService.getComments(this.postId).subscribe(
+  getComments(loadmore: boolean = false) {
+    this.commentService.getComments(this.postId, this.pageNumber).subscribe(
       data => {
-        console.log(data);
-        this.comments = data.content;
+        if (loadmore) this.comments = this.comments.concat(data.content as Comment[]);
+        else this.comments = data.content;
+
+        if (data.last) this.noMoreComments = true;
+        this.loading = false;
       }
     )
+  }
+
+  loadMoreComments() {
+    this.loading = true;
+    this.pageNumber++;
+    this.getComments(true);
   }
 
   getReactionCount() {
@@ -134,6 +148,8 @@ export class PostFullSizeComponent implements OnInit {
     )
   }
 
+
+
   deletePost() {
     this.postService.deletePost(this.post.id).subscribe(
       data => {
@@ -147,6 +163,15 @@ export class PostFullSizeComponent implements OnInit {
         this.getPost();
       }
     )
+  }
+
+  addEmoji($event: any, type: string) {
+    if (this.commentContent === undefined) {
+      this.commentContent = '' + $event.emoji.native;
+    } else {
+      this.commentContent = this.commentContent + $event.emoji.native;
+    }
+
   }
 
   addComment() {

@@ -65,9 +65,17 @@
 
 
     <div class="add-comments">
-        <textarea id="content" rows="4" cols="50" pInputTextarea [(ngModel)]="commentContent"
-            placeholder="your awesome comment . . ." style="resize: none;"></textarea>
+        <span class="p-float-label">
+            <textarea id="content" rows="4" cols="50" pInputTextarea [(ngModel)]="commentContent"
+                placeholder="your awesome comment . . ." style="resize: none;"></textarea>
+            <i class="fa-solid fa-icons" (click)="op.toggle($event)"></i>
+        </span>
         <p-button label="Submit" (click)="addComment()"></p-button>
+
+        <p-overlayPanel #op>
+            <emoji-mart title="Pick your emoji…" emoji="point_up" set="apple"
+                (emojiClick)="addEmoji($event,'content')"></emoji-mart>
+        </p-overlayPanel>
     </div>
 
     <div class="comments">
@@ -76,6 +84,13 @@
             <div class="content-comment">{{comment.content}}</div>
             <span class="divider"></span>
         </div>
+    </div>
+    <p-button label="Load More" [loading]="loading" (click)="loadMoreComments()" class="load-more-btn"
+        *ngIf="!noMoreComments"></p-button>
+    <div *ngIf="noMoreComments">
+        no more comments
+        <i class="fa-regular fa-face-sad-tear"></i>
+
     </div>
 
 </div>

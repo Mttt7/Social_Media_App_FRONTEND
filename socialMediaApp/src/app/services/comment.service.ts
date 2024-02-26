@@ -12,8 +12,8 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  getComments(postId: number): Observable<GetResponseComments> {
-    let pageNumber = 0;
+  getComments(postId: number, pageNumber: number): Observable<GetResponseComments> {
+
     return this.http.get<GetResponseComments>(`${this.commentUrl}/${postId}?pageSize=10&pageNumber=${pageNumber}`);
   }
 
