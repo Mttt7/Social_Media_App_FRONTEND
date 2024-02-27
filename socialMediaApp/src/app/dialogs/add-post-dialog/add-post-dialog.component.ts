@@ -1,6 +1,6 @@
 
 import { Component, ViewChild, ElementRef, ViewEncapsulation, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { PostService } from '../../services/post-service.service';
+import { PostService } from '../../services/post.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';

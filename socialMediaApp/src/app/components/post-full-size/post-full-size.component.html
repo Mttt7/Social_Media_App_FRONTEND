@@ -63,8 +63,8 @@
     </div>
 
 
-
-    <div class="add-comments">
+    <p-button label="Add Comment" *ngIf="!addCommentFormShown" (click)="toggleAddCommentForm()"></p-button>
+    <div class="add-comments" *ngIf="addCommentFormShown">
         <span class="p-float-label">
             <textarea id="content" rows="4" cols="50" pInputTextarea [(ngModel)]="commentContent"
                 placeholder="your awesome comment . . ." style="resize: none;"></textarea>
@@ -78,7 +78,7 @@
         </p-overlayPanel>
     </div>
 
-    <div class="comments">
+    <div class="comments" *ngIf="comments.length>0">
         <div *ngFor="let comment of comments" class="comment">
             <app-comment [comment]="comment"></app-comment>
             <span class="divider"></span>

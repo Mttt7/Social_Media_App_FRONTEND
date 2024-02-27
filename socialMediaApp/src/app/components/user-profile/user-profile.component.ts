@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 import { FriendshipService } from '../../services/friendship.service';
 import { MenuItem } from 'primeng/api';
 import { Post } from '../../models/Post';
-import { PostService } from '../../services/post-service.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-user-profile',

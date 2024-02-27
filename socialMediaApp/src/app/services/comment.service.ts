@@ -29,6 +29,8 @@ export class CommentService {
   getReactionCount(commentId: number): Observable<ReactionCountResponse> {
     return this.http.get<ReactionCountResponse>(`${this.commentUrl}/${commentId}/reactions`);
   }
+
+
 }
 
 interface GetResponseComments {

@@ -32,12 +32,13 @@ export class CommentComponent implements OnInit {
     }
   );
 
-  @Input() comment!: Comment;
+  @Input() comment: Comment = {} as Comment;
   reaction = Reaction;
 
   constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
+    if (this.comment.id === undefined || this.comment.id == null) return;
     this.commentService.getReactionCount(this.comment.id).subscribe(
       data => {
         this.countReaction.next(data);

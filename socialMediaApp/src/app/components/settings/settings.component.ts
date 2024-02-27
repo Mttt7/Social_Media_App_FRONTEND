@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FriendshipService } from '../../services/friendship.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { PostService } from '../../services/post-service.service';
+import { PostService } from '../../services/post.service';
 import { Observable, map, of, switchMap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserProfile } from '../../models/UserProfile';

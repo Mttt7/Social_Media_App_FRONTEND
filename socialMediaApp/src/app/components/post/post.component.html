@@ -14,7 +14,7 @@
         <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="post.userId==userId"></i>
     </div>
     <div class="date"> {{ post.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
-    <div class="upper-section section">
+    <div class="upper-section section" [routerLink]="['/posts', post.id]">
         <div class="title">{{post.title}}</div>
         <div class="image" [routerLink]="['/posts', post.id]">
             <img [src]="imageUrl" alt="" (click)="getImage()">
@@ -22,7 +22,7 @@
 
         <div class="content">{{post.content}}</div>
     </div>
-    <span class="divider"></span>
+
     <div class="bot-section section">
         <div class="reactions">
             <div class="add-reaction">
@@ -50,7 +50,17 @@
             </div>
 
         </div>
-        <div class="comment" [routerLink]="['/posts', post.id]"><i class="fa-regular fa-comment"></i></div>
+        <span class="divider"></span>
+        <div class="comment" *ngIf="bestComment.id!==null">
+            <div style="font-size: .75rem;font-style: italic;">best comment:</div>
+            <app-comment [comment]="bestComment" style="transform: scale(0.85);width: 100%;"></app-comment>
+            <p-button label="More" [size]="'small'" icon="fa-solid fa-comment"
+                [routerLink]="['/posts', post.id]"></p-button>
+        </div>
+        <div class="comment" *ngIf="bestComment.id==null">
+            <p-button label="Add First Comment!" [size]="'small'" icon="fa-solid fa-comment"
+                [routerLink]="['/posts', post.id]"></p-button>
+        </div>
     </div>
 </div>
 
