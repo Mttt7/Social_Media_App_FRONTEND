@@ -32,12 +32,13 @@ export class CommentComponent implements OnInit {
     }
   );
 
-  @Input() comment!: Comment;
+  @Input() comment: Comment = {} as Comment;
   reaction = Reaction;
 
   constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
+    if (this.comment.id === undefined || this.comment.id == null) return;
     this.commentService.getReactionCount(this.comment.id).subscribe(
       data => {
         this.countReaction.next(data);
@@ -48,7 +49,6 @@ export class CommentComponent implements OnInit {
   react(reaction: Reaction) {
     this.commentService.reactToComment(this.comment.id, reaction).subscribe(
       data => {
-        console.log(data);
         this.countReaction.next(data);
       }
     );

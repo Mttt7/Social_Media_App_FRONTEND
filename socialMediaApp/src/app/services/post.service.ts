@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Post } from '../models/Post';
 import { ReactionCountResponse } from '../models/ReactionCountResponse';
 import { PostCreateRequestPayload } from '../models/PostCreateRequestPayload';
+import { Comment } from '../models/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,10 @@ export class PostService {
 
   getPostById(postId: number): Observable<Post> {
     return this.http.get<Post>(`${this.postUrl}/${postId}`);
+  }
 
+  getBestComment(postId: number): Observable<Comment> {
+    return this.http.get<Comment>(`${this.postUrl}/${postId}/bestComment`);
   }
 
 }

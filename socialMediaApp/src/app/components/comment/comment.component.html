@@ -1,4 +1,4 @@
-<div class="comment">
+<div class="comment" *ngIf="comment.id">
     <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
     <div class="content-comment">{{comment.content}}</div>
 

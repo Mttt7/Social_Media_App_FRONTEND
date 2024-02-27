@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../../models/Post';
 import { Reaction } from '../../enums/Reaction';
-import { PostService } from '../../services/post-service.service';
+import { PostService } from '../../services/post.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserService } from '../../services/user.service';
 import { DialogService } from '../../services/dialog.service';
 import { CommonService } from '../../services/common.service';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../models/Comment';
 
 
 interface CountReaction {
@@ -38,6 +40,8 @@ export class PostComponent {
   userId: number = -1;
   loading: boolean = false;
 
+  bestComment: Comment = {} as Comment;
+
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
     {
@@ -65,6 +69,15 @@ export class PostComponent {
         this.userId = data;
       })
     this.getImage();
+    this.getBestComment();
+  }
+
+  getBestComment() {
+    this.postService.getBestComment(this.post.id).subscribe(
+      data => {
+        this.bestComment = data;
+      }
+    )
   }
 
   react(reaction: Reaction) {

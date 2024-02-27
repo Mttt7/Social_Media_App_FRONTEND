@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../services/post-service.service';
+import { PostService } from '../../services/post.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { UserProfile } from '../../models/UserProfile';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -57,6 +57,7 @@ export class PostFullSizeComponent implements OnInit {
 
   pageNumber: number = 0;
   noMoreComments = false;
+  addCommentFormShown = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute,
     private dialogService: DialogService, private userService: UserService, private commonService: CommonService,
@@ -181,6 +182,10 @@ export class PostFullSizeComponent implements OnInit {
         this.commentContent = '';
       }
     )
+  }
+
+  toggleAddCommentForm() {
+    this.addCommentFormShown = !this.addCommentFormShown;
   }
 
 
