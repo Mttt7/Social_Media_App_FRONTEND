@@ -38,3 +38,20 @@
     cursor: pointer;
     transform: scale(1.1);
 }
+
+.upper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fa-bars.more {
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+ul {
+    li {
+        cursor: pointer;
+    }
+}

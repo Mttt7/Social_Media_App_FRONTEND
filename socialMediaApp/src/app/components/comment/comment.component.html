@@ -1,5 +1,17 @@
 <div class="comment" *ngIf="comment.id">
-    <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
+    <p-overlayPanel #op>
+        <ng-template pTemplate="content">
+            <ul>
+                <li (click)="deleteComment()">Delete</li>
+            </ul>
+        </ng-template>
+    </p-overlayPanel>
+
+    <div class="upper">
+        <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
+        <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="comment.authorId==userId"></i>
+    </div>
+
     <div class="content-comment">{{comment.content}}</div>
 
     <div class="reactions">

@@ -44,6 +44,7 @@ interface CommentRespone {
 export class PostFullSizeComponent implements OnInit {
 
 
+
   reaction = Reaction;
   imageUrl: string = '';
   loading: boolean = false;
@@ -58,6 +59,7 @@ export class PostFullSizeComponent implements OnInit {
   pageNumber: number = 0;
   noMoreComments = false;
   addCommentFormShown = false;
+
 
   constructor(private postService: PostService, private route: ActivatedRoute,
     private dialogService: DialogService, private userService: UserService, private commonService: CommonService,
@@ -186,6 +188,10 @@ export class PostFullSizeComponent implements OnInit {
 
   toggleAddCommentForm() {
     this.addCommentFormShown = !this.addCommentFormShown;
+  }
+
+  commentDeleted(id: number) {
+    this.comments = this.comments.filter(comment => comment.id !== id);
   }
 
 

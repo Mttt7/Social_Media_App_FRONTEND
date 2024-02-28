@@ -30,6 +30,10 @@ export class CommentService {
     return this.http.get<ReactionCountResponse>(`${this.commentUrl}/${commentId}/reactions`);
   }
 
+  deleteComment(commentId: number): Observable<any> {
+    return this.http.delete<any>(`${this.commentUrl}/${commentId}`);
+  }
+
 
 }
 

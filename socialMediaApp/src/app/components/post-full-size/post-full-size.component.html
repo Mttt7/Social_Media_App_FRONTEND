@@ -9,7 +9,7 @@
             </ng-template>
         </p-overlayPanel>
 
-        <div class="author">
+        <div class="author" *ngIf="!loading">
             <app-user-badge [userId]="post.userId" [routerLink]="['/users', post.userId]"
                 [queryParams]="{tab: 'posts'}"></app-user-badge>
 
@@ -80,7 +80,7 @@
 
     <div class="comments" *ngIf="comments.length>0">
         <div *ngFor="let comment of comments" class="comment">
-            <app-comment [comment]="comment"></app-comment>
+            <app-comment [comment]="comment" (commentDeleted)="commentDeleted($event)"></app-comment>
             <span class="divider"></span>
         </div>
     </div>
