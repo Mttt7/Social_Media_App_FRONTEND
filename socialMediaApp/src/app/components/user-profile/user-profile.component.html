@@ -28,7 +28,7 @@
     <p-tabMenu [model]="menuItems" [activeItem]="activeMenuItem"></p-tabMenu>
     <div class="content">
 
-        <div class="main-content">
+        <div class="main-content" *ngIf="activeMenuItem==menuItems[0]">
             <div class="posts" *ngIf="activeMenuItem.id==='posts'">
                 <app-post *ngFor="let post of userPosts" [post]="post" class="post"></app-post>
             </div>
@@ -39,6 +39,17 @@
                 <i class="fa-regular fa-face-sad-tear"></i>
             </div>
 
+        </div>
+
+        <div class="friends" *ngIf="activeMenuItem==menuItems[2]">
+            <span class="p-input-icon-left">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input pInputText placeholder="Search" (input)="searchFriend($event)" />
+            </span>
+            <div *ngFor="let friend of friendsList">
+                <app-user-badge [userId]="friend.id" class="friend" [routerLink]="['/users', friend.id]"
+                    [queryParams]="{tab:'posts'}" (click)="refresh()"></app-user-badge>
+            </div>
         </div>
 
     </div>

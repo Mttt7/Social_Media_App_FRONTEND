@@ -71,6 +71,8 @@ export class UserProfileComponent implements OnInit {
 
   status: string = '';
 
+  friendsList: UserProfile[] = [];
+
   userPosts: Post[] = [];
   pageNumber: number = 0;
   noMorePosts: boolean = false;
@@ -80,13 +82,25 @@ export class UserProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      let tab = params.get('tab');
+      if (tab === 'about') {
+        this.activeMenuItem = this.menuItems[1];
+      }
+      else if (tab === 'friends') {
+        this.activeMenuItem = this.menuItems[2];
+      }
+      else if (tab === 'posts') {
+        this.activeMenuItem = this.menuItems[0];
+      }
+    })
     this.userService.getUserId().subscribe((selfId) => {
-
       this.route.paramMap.subscribe((params) => {
 
         this.userId = Number(params.get('userId'));
         this.getUserPosts();
         this.getStatus();
+        this.getFriendsList();
 
         this.userService.getUserProfileById(this.userId).subscribe((user) => {
           this.user = user;
@@ -96,6 +110,12 @@ export class UserProfileComponent implements OnInit {
           }
         });
       })
+    })
+  }
+
+  getFriendsList() {
+    this.friendshipService.getFriendsList(this.userId).subscribe((friends) => {
+      this.friendsList = friends;
     })
   }
 
@@ -147,6 +167,17 @@ export class UserProfileComponent implements OnInit {
   loadMorePosts() {
     this.pageNumber++;
     this.getUserPosts(true);
+  }
+
+  refresh() {
+    this.ngOnInit();
+  }
+
+  searchFriend(event: any) {
+    let searchQuery: string = event.target.value;
+    this.friendshipService.searchFriend(this.userId, searchQuery).subscribe((friends) => {
+      this.friendsList = friends;
+    })
   }
 }
 

@@ -10,6 +10,7 @@ import { StringResponse } from '../models/StringResponse';
 export class FriendshipService {
 
 
+
   userUrl = 'http://localhost:5000/api/v1/user';
 
   constructor(private http: HttpClient) { }
@@ -27,7 +28,7 @@ export class FriendshipService {
   }
 
   getFriendsList(userId: number): Observable<UserProfile[]> {
-    return this.http.get<UserProfile[]>(this.userUrl + userId + '/friends');
+    return this.http.get<UserProfile[]>(this.userUrl + '/' + userId + '/friends');
   }
 
   getSentRequests(): Observable<UserProfile[]> {
@@ -36,6 +37,13 @@ export class FriendshipService {
 
   getReceivedRequests(): Observable<UserProfile[]> {
     return this.http.get<UserProfile[]>(this.userUrl + '/friendRequests/received');
+  }
+
+  searchFriend(userId: number, searchQuery: string) {
+    if (searchQuery === '') {
+      return this.getFriendsList(userId);
+    }
+    return this.http.get<UserProfile[]>(this.userUrl + '/' + userId + '/searchFriends/' + searchQuery);
   }
 
 }
