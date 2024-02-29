@@ -77,6 +77,7 @@ export class PostFullSizeComponent implements OnInit {
   );
 
   ngOnInit(): void {
+
     this.pageNumber = 0;
     this.noMoreComments = false;
     this.loading = true;
@@ -88,7 +89,7 @@ export class PostFullSizeComponent implements OnInit {
         this.getComments();
       }
     )
-    this.userService.getUserId().subscribe(
+    this.userService.getUserId()?.subscribe(
       id => {
         this.userId = id;
       }

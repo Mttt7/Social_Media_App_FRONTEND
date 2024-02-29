@@ -64,7 +64,7 @@ export class PostComponent {
         this.countReaction.next(data);
       }
     )
-    this.userService.getUserId().subscribe(
+    this.userService.getUserId()?.subscribe(
       data => {
         this.userId = data;
       })

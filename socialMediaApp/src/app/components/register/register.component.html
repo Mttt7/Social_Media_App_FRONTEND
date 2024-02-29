@@ -1,0 +1,50 @@
+<div class="main">
+
+    <div class="box">
+        <form class="form" [formGroup]="credentialsFormGroup">
+            <div style="font-size: 0.92rem;font-style: italic;color: lightcoral;" *ngIf="passwordDontMath">password
+                don't match!</div>
+            <div class="inputs" formGroupName="credentials">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="fa-regular fa-user"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText placeholder="Username" formControlName="username" [disabled]="loading" />
+                </p-inputGroup>
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="fa-solid fa-lock"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText type="password" placeholder="Password" formControlName="password"
+                        [disabled]="loading" />
+                </p-inputGroup>
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="fa-solid fa-lock"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText type="password" placeholder="Repeat Password" formControlName="passwordRepeated"
+                        [disabled]="loading" />
+                </p-inputGroup>
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="fa-solid fa-id-card"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText type="password" placeholder="First Name" formControlName="firstName"
+                        [disabled]="loading" />
+                </p-inputGroup>
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="fa-solid fa-id-card"></i>
+                    </p-inputGroupAddon>
+                    <input pInputText type="password" placeholder="Last Name" formControlName="lastName"
+                        [disabled]="loading" />
+                </p-inputGroup>
+            </div>
+
+            <p-button label="Register" iconPos="right" (click)="register()"></p-button>
+
+        </form>
+
+    </div>
+
+</div>

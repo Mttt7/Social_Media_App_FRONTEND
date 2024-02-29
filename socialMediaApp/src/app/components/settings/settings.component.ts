@@ -49,7 +49,7 @@ export class SettingsComponent {
   }
 
   getUser() {
-    this.userService.getUserId().pipe(
+    this.userService.getUserId()?.pipe(
       switchMap(id => this.userService.getUserProfileById(id))
     ).subscribe(user => {
       this.user = user;

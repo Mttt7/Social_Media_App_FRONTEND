@@ -23,12 +23,14 @@ export class HeaderComponent {
 
   ngOnInit() {
 
+
+
     this.items = [
       { label: 'Home', icon: 'fa-solid fa-house', command: () => this.router.navigateByUrl('/home/feed') },
       { label: 'Friends Activity', icon: 'fa-solid fa-user-group', command: () => this.router.navigateByUrl('/home/friends') },
       {
         label: 'My Profile', icon: 'fa-solid fa-user', command: () => {
-          this.userService.getUserId().subscribe((data) => {
+          this.userService.getUserId()?.subscribe((data) => {
             this.router.navigateByUrl('/users/' + data);
           })
 
@@ -51,8 +53,10 @@ export class HeaderComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-
-      this.userService.getUserId().subscribe((userId) => {
+      if (event.urlAfterRedirects === '/login' && event.urlAfterRedirects === '/register') {
+        return;
+      }
+      this.userService.getUserId()?.subscribe((userId) => {
 
         if (event.urlAfterRedirects === '/home') {
           this.activeItem = this.items[0];

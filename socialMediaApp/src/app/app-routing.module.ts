@@ -6,6 +6,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { SettingsComponent } from './components/settings/settings.component';
 import { Post } from './models/Post';
 import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,8 @@ const routes: Routes = [
 
   { path: 'home', redirectTo: '/home/feed', pathMatch: 'full' },
   { path: 'home/:feedType', component: HomeComponent },
+
+  { path: 'register', component: RegisterComponent }
 
 
 ];

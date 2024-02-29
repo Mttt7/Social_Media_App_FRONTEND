@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { LoginValidators } from '../../validators/loginValidators';
 import { AuthService } from '../../services/auth.service';
 import { LoginResponsePayload } from '../../models/LoginResponsePayload';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 
@@ -17,11 +17,21 @@ export class LoginComponent implements OnInit {
 
   credentialsFormGroup!: FormGroup;
   invalidCredentials: boolean = false;
+  newAccount: boolean = false;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      if (params.get('registered') === 'true') {
+        this.newAccount = true;
+      } else {
+        this.newAccount = false;
+      }
+    })
+
+
     this.credentialsFormGroup = this.formBuilder.group({
       credentials: this.formBuilder.group({
         username: new FormControl('',
@@ -51,13 +61,12 @@ export class LoginComponent implements OnInit {
       data => {
         this.authService.setToken(data);
         this.loading = false;
-        this.userService.getUserId().subscribe(
+        this.userService.getUserId()?.subscribe(
           data => {
             localStorage.setItem('userId', data.toString());
             this.router.navigateByUrl('/home');
           }
         )
-
       }, error => {
         this.loading = false;
         if (error.status == 401) {
@@ -66,8 +75,4 @@ export class LoginComponent implements OnInit {
       }
     )
   }
-
-
-
-
 }

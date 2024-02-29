@@ -44,6 +44,7 @@ import { ErrorInterceptorService } from './services/error-interceptor.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { CommentComponent } from './components/comment/comment.component';
     UserProfileComponent,
     SettingsComponent,
     PostFullSizeComponent,
-    CommentComponent
+    CommentComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

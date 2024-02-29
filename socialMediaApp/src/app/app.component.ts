@@ -9,17 +9,19 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class AppComponent implements OnInit {
 
   title = 'socialMediaApp';
-  login: boolean = false;
+  hide: boolean = true;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.hide = true;
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/login') {
-          this.login = true;
-        } else {
-          this.login = false;
+        if (event.url.includes('/login') || event.url === '/register') {
+          this.hide = true;
+        }
+        else {
+          this.hide = false;
         }
       }
     });

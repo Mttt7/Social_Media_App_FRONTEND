@@ -64,7 +64,7 @@ export class EditPostDialogComponent {
 
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
-      this.getFileName().subscribe((path: any) => {
+      this.getFileName()?.subscribe((path: any) => {
         this.store.upload(path, this.selectedFile.file).then((res) => {
           this.uploadedImagePath = res.metadata.fullPath
         })
@@ -73,8 +73,8 @@ export class EditPostDialogComponent {
     reader.readAsDataURL(file);
   }
 
-  getFileName(): Observable<string> {
-    return this.userService.getUserId().pipe(
+  getFileName(): Observable<string> | undefined {
+    return this.userService.getUserId()?.pipe(
       switchMap(id => this.userService.getUserProfileById(id)),
       map(user => 'images/' + user.username + '/posts/' + Math.floor(Math.random() * (999999999 - 99 + 1)) + 99)
     );

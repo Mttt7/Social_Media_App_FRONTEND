@@ -94,7 +94,7 @@ export class UserProfileComponent implements OnInit {
         this.activeMenuItem = this.menuItems[0];
       }
     })
-    this.userService.getUserId().subscribe((selfId) => {
+    this.userService.getUserId()?.subscribe((selfId) => {
       this.route.paramMap.subscribe((params) => {
 
         this.userId = Number(params.get('userId'));

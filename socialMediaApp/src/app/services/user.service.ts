@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { UserProfile } from '../models/UserProfile';
 
 @Injectable({
@@ -10,10 +10,15 @@ export class UserService {
 
   userUrl = 'http://localhost:5000/api/v1/user';
 
+
   constructor(private http: HttpClient) { }
 
-  getUserId(): Observable<number> {
-    return this.http.get<number>(this.userUrl + '/userId');
+  getUserId(): Observable<number> | null {
+    if (!localStorage.getItem('jwtToken')) return null;
+    if (!localStorage.getItem('userId')) {
+      return this.http.get<number>(this.userUrl + '/userId');
+    }
+    return of(Number(localStorage.getItem('userId')));
   }
 
   getUserProfileById(userId: number): Observable<UserProfile> {
