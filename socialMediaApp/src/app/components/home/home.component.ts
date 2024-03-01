@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   pageNumber: number = 0;
   mode: string = '';
 
+  feedType: string = 'feed';
   loading: boolean = false;
   noMorePosts: boolean = false;
   refreshed: boolean = false;
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
 
   getPosts(feedType: string, loadmore: boolean = false) {
     if (feedType === 'feed') {
+      this.feedType = 'feed';
       this.postService.getFeedPosts(this.pageNumber).subscribe(
         data => {
           if (data.last) this.noMorePosts = true
@@ -47,6 +49,7 @@ export class HomeComponent implements OnInit {
         }
       )
     } else if (feedType === 'friends') {
+      this.feedType = 'friends';
       this.postService.getFriendsPosts(this.pageNumber).subscribe(
         data => {
           if (data.last) this.noMorePosts = true;

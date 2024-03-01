@@ -22,9 +22,6 @@ export class HeaderComponent {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-
-
     this.items = [
       { label: 'Home', icon: 'fa-solid fa-house', command: () => this.router.navigateByUrl('/home/feed') },
       { label: 'Friends Activity', icon: 'fa-solid fa-user-group', command: () => this.router.navigateByUrl('/home/friends') },
@@ -57,8 +54,7 @@ export class HeaderComponent {
         return;
       }
       this.userService.getUserId()?.subscribe((userId) => {
-
-        if (event.urlAfterRedirects === '/home') {
+        if (event.urlAfterRedirects === '/home/feed') {
           this.activeItem = this.items[0];
         } else if (event.urlAfterRedirects === '/home/friends') {
           this.activeItem = this.items[1];
@@ -77,7 +73,6 @@ export class HeaderComponent {
           this.activeItem = this.items[5];
         }
       })
-
     });
 
 
