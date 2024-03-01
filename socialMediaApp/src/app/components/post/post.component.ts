@@ -30,6 +30,7 @@ export class PostComponent {
 
 
 
+
   @Input() post!: Post;
   @Output() postDeleted: EventEmitter<any> = new EventEmitter();
   @Output() postEdited: EventEmitter<any> = new EventEmitter();
@@ -41,6 +42,7 @@ export class PostComponent {
   loading: boolean = false;
 
   bestComment: Comment = {} as Comment;
+  commentCount: string = '0';
 
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
@@ -70,6 +72,7 @@ export class PostComponent {
       })
     this.getImage();
     this.getBestComment();
+    this.updateCommentCount();
   }
 
   getBestComment() {
@@ -112,6 +115,13 @@ export class PostComponent {
         this.postEdited.emit();
       }
     )
+  }
+
+  updateCommentCount(): void {
+    if (this.post?.commentCount > 99) {
+      this.commentCount = '99';
+    }
+    else this.commentCount = this.post?.commentCount?.toString();
   }
 
 }

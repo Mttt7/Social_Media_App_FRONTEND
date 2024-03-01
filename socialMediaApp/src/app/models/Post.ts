@@ -7,6 +7,7 @@ export class Post {
     public createdAt: Date;
     public lastUpdated: Date;
     public reactionCount: number;
+    public commentCount: number;
     public reactions: any;
     public imageUrl: String;
     public topic: Topic;
@@ -18,6 +19,7 @@ export class Post {
         createdAt: Date,
         lastUpdated: Date,
         reactionCount: number,
+        commentCount: number,
         imageUrl: String,
         topic: Topic,
         userId: number) {
@@ -27,6 +29,7 @@ export class Post {
         this.createdAt = createdAt;
         this.lastUpdated = lastUpdated;
         this.reactionCount = reactionCount;
+        this.commentCount = commentCount;
         this.imageUrl = imageUrl;
         this.topic = topic;
         this.userId = userId;

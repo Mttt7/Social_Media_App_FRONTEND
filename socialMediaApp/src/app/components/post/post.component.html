@@ -54,7 +54,8 @@
         <div class="comment" *ngIf="bestComment.id!==null">
             <div style="font-size: .75rem;font-style: italic;">best comment:</div>
             <app-comment [comment]="bestComment" style="transform: scale(0.85);width: 100%;"></app-comment>
-            <p-button label="More" size="small" icon="fa-solid fa-comment" [routerLink]="['/posts', post.id]">
+            <p-button label="More" size="small" icon="fa-solid fa-comment" [routerLink]="['/posts', post.id]"
+                [badge]="commentCount">
             </p-button>
         </div>
         <div class="comment" *ngIf="bestComment.id==null">
