@@ -13,10 +13,12 @@ import { RegisterRequestPayload } from '../../models/RegisterRequestPayload';
 })
 export class RegisterComponent implements OnInit {
 
+
   credentialsFormGroup!: FormGroup;
   invalidCredentials: boolean = false;
   loading = false;
-  passwordDontMath = false
+  passwordDontMath = false;
+  usernameTaken = false;
 
   constructor(private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -67,8 +69,21 @@ export class RegisterComponent implements OnInit {
 
 
   register() {
-    this.passwordDontMath = false
-    if (this.password?.value === this.passwordRepeated?.value) {
+    if (this.usernameTaken) return;
+    console.log(this.password?.value, this.passwordRepeated?.value)
+
+    if (this.username?.valid
+      && this.password?.valid
+      && this.passwordRepeated?.valid
+      && this.firstName?.valid
+      && this.lastName?.valid) {
+
+      if (this.password?.value != this.passwordRepeated?.value) {
+        console.log('passwords dont match')
+        this.passwordDontMath = true
+        return
+      } else this.passwordDontMath = false
+
       let registerPayload = {
         username: this.username?.value,
         password: this.password?.value,
@@ -80,11 +95,31 @@ export class RegisterComponent implements OnInit {
         data => {
           if (data.message == 'success') {
             this.router.navigateByUrl('/login?registered=true');
+          } else {
+            console.log(data)
           }
         }
       )
-    } else this.passwordDontMath = true
+    } else {
+      this.username?.markAsDirty();
+      this.password?.markAsDirty();
+      this.passwordRepeated?.markAsDirty();
+      this.firstName?.markAsDirty();
+      this.lastName?.markAsDirty();
+
+    }
 
   }
+
+  checkUsername() {
+    if (this.username?.value == '') return
+    this.authService.checkUsernameAvailability(this.username?.value).subscribe(
+      data => {
+        console.log(data)
+        this.usernameTaken = !data.available
+      }
+    )
+  }
+
 
 }

@@ -2,14 +2,16 @@
 
     <div class="box">
         <form class="form" [formGroup]="credentialsFormGroup">
-            <div style="font-size: 0.92rem;font-style: italic;">Registration success! Use your credentials to Log in:
+            <div style="font-size: 0.92rem;font-style: italic;" *ngIf="newAccount">Registration success! Use your
+                credentials to Log in:
             </div>
             <div class="inputs" formGroupName="credentials">
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-regular fa-user"></i>
                     </p-inputGroupAddon>
-                    <input pInputText placeholder="Username" formControlName="username" [disabled]="loading" />
+                    <input [autofocus]="true" pAutoFocus pInputText placeholder="Username" formControlName="username"
+                        [disabled]="loading" />
                 </p-inputGroup>
                 <p-inputGroup>
                     <p-inputGroupAddon>
@@ -21,7 +23,8 @@
             </div>
 
 
-            <p-button label="Login" [loading]="loading" (onClick)="login()" iconPos="right"></p-button>
+            <p-button label="Login" [loading]="loading" (onClick)="login()" icon="fa-solid fa-arrow-right"
+                iconPos="left"></p-button>
             <div style="font-size: 0.92rem;font-style: italic;"> don't have account?</div>
             <p-button label="Register" iconPos="right" size="small" [routerLink]="['/register']"></p-button>
 

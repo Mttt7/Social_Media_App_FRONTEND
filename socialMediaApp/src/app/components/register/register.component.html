@@ -2,21 +2,30 @@
 
     <div class="box">
         <form class="form" [formGroup]="credentialsFormGroup">
-            <div style="font-size: 0.92rem;font-style: italic;color: lightcoral;" *ngIf="passwordDontMath">password
-                don't match!</div>
+            <div style="font-size: 0.92rem;font-style: italic; color: lightcoral;" *ngIf="passwordDontMath"> Use your
+                Passwords dont match!
+            </div>
+            <div style="font-size: 0.92rem;font-style: italic; color: lightcoral;" *ngIf="usernameTaken">
+                Username is already taken!
+            </div>
+
             <div class="inputs" formGroupName="credentials">
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-regular fa-user"></i>
                     </p-inputGroupAddon>
-                    <input pInputText placeholder="Username" formControlName="username" [disabled]="loading" />
+                    <input [autofocus]="true" pAutoFocus pInputText placeholder="Username" formControlName="username"
+                        [disabled]="loading" (blur)="checkUsername()"
+                        pTooltip="Username can contain letter, digits and - or _ . It cannot start or end with an underscore or a hyphen. At least 4 characters long.">
                 </p-inputGroup>
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-solid fa-lock"></i>
                     </p-inputGroupAddon>
                     <input pInputText type="password" placeholder="Password" formControlName="password"
-                        [disabled]="loading" />
+                        [disabled]="loading" pTooltip="Password has to contain: one letter, one digit
+                        at least one special characte( &#64;, $, !, %, *, #, ?, & )
+                        and at least 8 characters long." />
                 </p-inputGroup>
                 <p-inputGroup>
                     <p-inputGroupAddon>
@@ -29,20 +38,23 @@
                     <p-inputGroupAddon>
                         <i class="fa-solid fa-id-card"></i>
                     </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="First Name" formControlName="firstName"
-                        [disabled]="loading" />
+                    <input pInputText type="text" placeholder="First Name" formControlName="firstName"
+                        [disabled]="loading"
+                        pTooltip="First name has to starts with upper case. At least 2 characters long." />
                 </p-inputGroup>
                 <p-inputGroup>
                     <p-inputGroupAddon>
                         <i class="fa-solid fa-id-card"></i>
                     </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="Last Name" formControlName="lastName"
-                        [disabled]="loading" />
+                    <input pInputText type="text" placeholder="Last Name" formControlName="lastName"
+                        [disabled]="loading"
+                        pTooltip="Last name has to starts with upper case. At least 2 characters long." />
                 </p-inputGroup>
             </div>
 
-            <p-button label="Register" iconPos="right" (click)="register()"></p-button>
-
+            <p-button label="Register" iconPos="right" (click)="register()" icon="fa-solid fa-arrow-right"
+                iconPos="left"></p-button>
+            <p-button label="Back" iconPos="right" [routerLink]="['/login']" size="small"></p-button>
         </form>
 
     </div>

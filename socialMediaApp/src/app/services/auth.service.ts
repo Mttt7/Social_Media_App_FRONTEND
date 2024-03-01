@@ -24,6 +24,10 @@ export class AuthService {
     return this.http.post(this.authUrl + '/register', registerPayload);
   }
 
+  checkUsernameAvailability(username: string): Observable<ExistsResponse> {
+    return this.http.get<ExistsResponse>(this.authUrl + '/username/' + username);
+  }
+
   setToken(token: LoginResponsePayload) {
     localStorage.setItem('jwtToken', token.accessToken);
   }
@@ -35,4 +39,9 @@ export class AuthService {
 
   }
 
+}
+
+
+interface ExistsResponse {
+  available: boolean;
 }

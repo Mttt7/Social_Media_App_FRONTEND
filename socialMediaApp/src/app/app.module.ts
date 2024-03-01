@@ -25,6 +25,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -88,7 +89,8 @@ import { RegisterComponent } from './components/register/register.component';
     AccordionModule,
     InputTextModule,
     TooltipModule,
-    DividerModule
+    DividerModule,
+    AutoFocusModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
