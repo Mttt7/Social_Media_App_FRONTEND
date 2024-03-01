@@ -54,8 +54,8 @@
         <div class="comment" *ngIf="bestComment.id!==null">
             <div style="font-size: .75rem;font-style: italic;">best comment:</div>
             <app-comment [comment]="bestComment" style="transform: scale(0.85);width: 100%;"></app-comment>
-            <p-button label="More" [size]="'small'" icon="fa-solid fa-comment"
-                [routerLink]="['/posts', post.id]"></p-button>
+            <p-button label="More" size="small" icon="fa-solid fa-comment" [routerLink]="['/posts', post.id]">
+            </p-button>
         </div>
         <div class="comment" *ngIf="bestComment.id==null">
             <p-button label="Add First Comment!" [size]="'small'" icon="fa-solid fa-comment"
@@ -66,5 +66,4 @@
 
 <div class="loading" *ngIf="loading">
     <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
-
 </div>

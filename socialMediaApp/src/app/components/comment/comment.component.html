@@ -10,8 +10,9 @@
     <div class="upper">
         <app-user-badge [userId]="comment.authorId" [routerLink]="['/users', comment.authorId]"></app-user-badge>
         <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="comment.authorId==userId"></i>
-    </div>
 
+    </div>
+    <div class="date"> {{ comment?.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
     <div class="content-comment">{{comment.content}}</div>
 
     <div class="reactions">

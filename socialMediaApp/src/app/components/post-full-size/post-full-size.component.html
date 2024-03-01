@@ -77,8 +77,38 @@
                 (emojiClick)="addEmoji($event,'content')"></emoji-mart>
         </p-overlayPanel>
     </div>
+    <div style="display: flex;align-items: center;justify-content: center; gap: 1rem;">
+        <div class="sorting">
+            <div>
+                <label for="Newest">Newest</label>
+                <p-radioButton name="sortingType" value="dateDesc" [(ngModel)]="sortingType"
+                    (ngModelChange)="sortingTypeChanged()"></p-radioButton>
+            </div>
+            <div>
+                <label for="Oldest">Oldest</label>
+                <p-radioButton name="sortingType" value="dateAsc" [(ngModel)]="sortingType"
+                    (ngModelChange)="sortingTypeChanged()"></p-radioButton>
+            </div>
+        </div>
+        <div class="sorting">
+            <div>
+                <label for="Newest">Most Popular</label>
+                <p-radioButton name="sortingType" value="reactionDesc" [(ngModel)]="sortingType"
+                    (ngModelChange)="sortingTypeChanged()"></p-radioButton>
+            </div>
+            <div>
+                <label for="Newest">Least Popular</label>
+                <p-radioButton name="sortingType" value="reactionAsc" [(ngModel)]="sortingType"
+                    (ngModelChange)="sortingTypeChanged()"></p-radioButton>
+            </div>
+
+        </div>
+    </div>
 
     <div class="comments" *ngIf="comments.length>0">
+
+
+
         <div *ngFor="let comment of comments" class="comment">
             <app-comment [comment]="comment" (commentDeleted)="commentDeleted($event)"></app-comment>
             <span class="divider"></span>

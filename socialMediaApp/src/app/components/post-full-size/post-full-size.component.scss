@@ -145,3 +145,22 @@ ul {
         cursor: pointer;
     }
 }
+
+.sorting {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .6rem;
+
+    div {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: white;
+        font-style: italic;
+
+    }
+}

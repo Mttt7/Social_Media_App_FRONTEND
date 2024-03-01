@@ -26,6 +26,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { BadgeModule } from 'primeng/badge';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -90,7 +92,9 @@ import { RegisterComponent } from './components/register/register.component';
     InputTextModule,
     TooltipModule,
     DividerModule,
-    AutoFocusModule
+    AutoFocusModule,
+    RadioButtonModule,
+    BadgeModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },

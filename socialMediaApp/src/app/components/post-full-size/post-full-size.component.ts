@@ -59,6 +59,7 @@ export class PostFullSizeComponent implements OnInit {
   pageNumber: number = 0;
   noMoreComments = false;
   addCommentFormShown = false;
+  sortingType: string = 'dateDesc';
 
 
   constructor(private postService: PostService, private route: ActivatedRoute,
@@ -77,7 +78,6 @@ export class PostFullSizeComponent implements OnInit {
   );
 
   ngOnInit(): void {
-
     this.pageNumber = 0;
     this.noMoreComments = false;
     this.loading = true;
@@ -97,8 +97,8 @@ export class PostFullSizeComponent implements OnInit {
 
   }
 
-  getComments(loadmore: boolean = false) {
-    this.commentService.getComments(this.postId, this.pageNumber).subscribe(
+  getComments(loadmore: boolean = false, sortingType: string = this.sortingType) {
+    this.commentService.getComments(this.postId, this.pageNumber, sortingType).subscribe(
       data => {
         if (loadmore) this.comments = this.comments.concat(data.content as Comment[]);
         else this.comments = data.content;
@@ -195,7 +195,11 @@ export class PostFullSizeComponent implements OnInit {
     this.comments = this.comments.filter(comment => comment.id !== id);
   }
 
-
+  sortingTypeChanged() {
+    this.pageNumber = 0;
+    this.noMoreComments = false;
+    this.getComments();
+  }
 
 
 }

@@ -70,8 +70,6 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (this.usernameTaken) return;
-    console.log(this.password?.value, this.passwordRepeated?.value)
-
     if (this.username?.valid
       && this.password?.valid
       && this.passwordRepeated?.valid
@@ -79,7 +77,6 @@ export class RegisterComponent implements OnInit {
       && this.lastName?.valid) {
 
       if (this.password?.value != this.passwordRepeated?.value) {
-        console.log('passwords dont match')
         this.passwordDontMath = true
         return
       } else this.passwordDontMath = false
@@ -96,6 +93,7 @@ export class RegisterComponent implements OnInit {
           if (data.message == 'success') {
             this.router.navigateByUrl('/login?registered=true');
           } else {
+            //Catch error
             console.log(data)
           }
         }
@@ -115,7 +113,6 @@ export class RegisterComponent implements OnInit {
     if (this.username?.value == '') return
     this.authService.checkUsernameAvailability(this.username?.value).subscribe(
       data => {
-        console.log(data)
         this.usernameTaken = !data.available
       }
     )
