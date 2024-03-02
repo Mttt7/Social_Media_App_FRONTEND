@@ -7,6 +7,8 @@ import { Observable, map, of, switchMap } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserProfile } from '../../models/UserProfile';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginValidators } from '../../validators/loginValidators';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -26,37 +28,76 @@ class ImageSnippet {
 export class SettingsComponent {
 
   user!: UserProfile;
-  firstName!: string;
-  lastName!: string;
-  username!: string;
-  bio!: string
+  // firstName!: string;
+  //lastName!: string;
+  //username!: string;
+  // bio!: string
 
   uploadedFile: any;
   selectedFile!: ImageSnippet;
   uploadedProfilePhoto: string = '';
   uploadedBackgroundPhoto: string = '';
 
+  nameAndBioFormGroup!: FormGroup;
+
   @ViewChild('profileImage') profileImage!: ElementRef;
   @ViewChild('backgroundImage') backgroundImage!: ElementRef;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private postService: PostService,
+
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private userService: UserService, private postService: PostService,
     private router: Router, private store: AngularFireStorage,
     private messageService: MessageService) { }
 
 
   ngOnInit(): void {
+
+    this.nameAndBioFormGroup = this.formBuilder.group({
+      nameAndBio: this.formBuilder.group({
+        firstName: new FormControl('',
+          [Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+          LoginValidators.notOnlyWhitespace,
+          LoginValidators.validName]),
+        lastName: new FormControl('',
+          [Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+          LoginValidators.notOnlyWhitespace,
+          LoginValidators.validName]),
+        username: new FormControl({ value: '', disabled: true },
+          [Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+          LoginValidators.notOnlyWhitespace,
+          LoginValidators.validUsername]),
+        bio: new FormControl('',
+          [Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(100),
+          LoginValidators.notOnlyWhitespace])
+      })
+    });
+
+
     this.getUser();
   }
+
+  get firstName() { return this.nameAndBioFormGroup.get('nameAndBio.firstName'); }
+  get lastName() { return this.nameAndBioFormGroup.get('nameAndBio.lastName'); }
+  get username() { return this.nameAndBioFormGroup.get('nameAndBio.username'); }
+  get bio() { return this.nameAndBioFormGroup.get('nameAndBio.bio'); }
+
 
   getUser() {
     this.userService.getUserId()?.pipe(
       switchMap(id => this.userService.getUserProfileById(id))
     ).subscribe(user => {
       this.user = user;
-      this.firstName = user.firstName;
-      this.lastName = user.lastName;
-      this.username = '@' + user.username;
-      this.bio = user.about;
+      this.firstName?.setValue(user.firstName);
+      this.lastName?.setValue(user.lastName);
+      this.username?.setValue('@' + user.username);
+      this.bio?.setValue(user.about);
     })
   }
 
@@ -98,7 +139,12 @@ export class SettingsComponent {
       })
     }
     else if (type === "name") {
-      this.userService.updateUserProfile({ firstName: this.firstName, lastName: this.lastName, about: this.bio }).subscribe(() => {
+      if (this.nameAndBioFormGroup.invalid) return;
+      this.userService.updateUserProfile({
+        firstName: this.firstName?.value,
+        lastName: this.lastName?.value,
+        about: this.bio?.value
+      }).subscribe(() => {
         this.getUser();
       })
     }

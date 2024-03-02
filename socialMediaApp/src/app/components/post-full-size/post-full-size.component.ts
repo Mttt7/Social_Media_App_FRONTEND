@@ -61,6 +61,9 @@ export class PostFullSizeComponent implements OnInit {
   addCommentFormShown = false;
   sortingType: string = 'dateDesc';
 
+  userReactionId: number = -1;
+
+
 
   constructor(private postService: PostService, private route: ActivatedRoute,
     private dialogService: DialogService, private userService: UserService, private commonService: CommonService,
@@ -129,6 +132,15 @@ export class PostFullSizeComponent implements OnInit {
         this.post = post;
         this.loading = false;
         this.getImage();
+        this.checkUserReaction();
+      }
+    )
+  }
+
+  checkUserReaction() {
+    this.postService.checkUserReaction(this.post.id).subscribe(
+      data => {
+        this.userReactionId = data.reaction;
       }
     )
   }
@@ -139,6 +151,7 @@ export class PostFullSizeComponent implements OnInit {
     this.postService.reactToPost(this.post.id, reaction).subscribe(
       data => {
         this.countReaction.next(data);
+        this.checkUserReaction();
       }
     );
   }
@@ -179,6 +192,8 @@ export class PostFullSizeComponent implements OnInit {
   }
 
   addComment() {
+    if (this.commentContent === '') return;
+    if (this.commentContent.length > 250) return;
     this.commentService.addComment(this.postId, this.commentContent).subscribe(
       data => {
         this.getComments();

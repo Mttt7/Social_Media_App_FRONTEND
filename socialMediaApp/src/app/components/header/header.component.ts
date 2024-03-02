@@ -15,7 +15,7 @@ export class HeaderComponent {
   notificationsNumber: number = 4;
 
   items: MenuItem[] = []
-  activeItem: MenuItem = this.items[0];
+  activeItem: MenuItem = this.items[-1];
 
 
   constructor(private authService: AuthService, private router: Router, private userService: UserService,

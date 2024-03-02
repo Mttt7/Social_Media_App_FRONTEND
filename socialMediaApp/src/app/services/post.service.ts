@@ -40,6 +40,10 @@ export class PostService {
     return this.http.post<ReactionCountResponse>(`${this.postUrl}/${postId}/${reaction}`, null);
   }
 
+  checkUserReaction(postId: number): Observable<UserReactionResponse> {
+    return this.http.get<UserReactionResponse>(`${this.postUrl}/${postId}/userReaction`);
+  }
+
   addPost(post: PostCreateRequestPayload): Observable<Post> {
     return this.http.post<Post>(this.postUrl, post);
   }
@@ -71,4 +75,9 @@ interface GetResponsePosts {
   first: boolean;
   numberOfElements: number;
 }
+
+interface UserReactionResponse {
+  reaction: number;
+}
+
 

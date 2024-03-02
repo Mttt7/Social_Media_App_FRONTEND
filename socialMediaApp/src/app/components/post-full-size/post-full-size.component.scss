@@ -164,3 +164,17 @@ ul {
 
     }
 }
+
+.date {
+    font-style: italic;
+    font-size: .8rem;
+    margin-left: 2rem;
+    color: rgba(209, 193, 193, 0.614);
+    margin-right: auto;
+}
+
+.active {
+    color: rgb(6, 6, 6);
+    font-weight: 500;
+    font-size: 1.1rem;
+}

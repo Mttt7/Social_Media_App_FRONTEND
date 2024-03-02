@@ -9,44 +9,45 @@
             </ng-template>
         </p-overlayPanel>
 
-        <div class="author" *ngIf="!loading">
+        <div class="author" *ngIf="!loading && post">
             <app-user-badge [userId]="post.userId" [routerLink]="['/users', post.userId]"
                 [queryParams]="{tab: 'posts'}"></app-user-badge>
 
             <i class="fa-solid fa-bars more" (click)="op.toggle($event)" *ngIf="post.userId==userId"></i>
         </div>
-        <div class="date"> {{ post.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
+        <div class="date"> {{ post?.createdAt | date:'dd-MM-YYYY HH:mm'}} </div>
         <div class="upper-section section">
-            <div class="title">{{post.title}}</div>
+            <div class="title">{{post?.title}}</div>
             <div class="image">
                 <a [href]="imageUrl">
                     <img [src]="imageUrl" alt="" (click)="getImage()">
                 </a>
             </div>
 
-            <div class="content">{{post.content}}</div>
+            <div class="content">{{post?.content}}</div>
         </div>
         <span class="divider"></span>
         <div class="bot-section section">
             <div class="reactions">
                 <div class="add-reaction">
-                    <div class="like reaction" (click)="react(reaction.LIKE)">
+                    <div class="like reaction" (click)="react(reaction.LIKE)" [ngClass]="{'active':userReactionId===0}">
                         <div class="emoji">👍</div>{{(countReaction |
                         async)?.like}}
                     </div>
-                    <div class="love reaction" (click)="react(reaction.LOVE)">
+                    <div class="love reaction" (click)="react(reaction.LOVE)" [ngClass]="{'active':userReactionId===1}">
                         <div class="emoji">❤️</div>{{(countReaction |
                         async)?.love}}
                     </div>
-                    <div class="haha reaction" (click)="react(reaction.HAHA)">
+                    <div class="haha reaction" (click)="react(reaction.HAHA)" [ngClass]="{'active':userReactionId===2}">
                         <div class="emoji">😄</div>
                         {{(countReaction | async)?.haha}}
                     </div>
-                    <div class="sad reaction" (click)="react(reaction.SAD)">
+                    <div class="sad reaction" (click)="react(reaction.SAD)" [ngClass]="{'active':userReactionId===3}">
                         <div class="emoji">😢</div>{{(countReaction
                         | async)?.sad}}
                     </div>
-                    <div class="angry reaction" (click)="react(reaction.ANGRY)">
+                    <div class="angry reaction" (click)="react(reaction.ANGRY)"
+                        [ngClass]="{'active':userReactionId===4}">
                         <div class="emoji">😠</div>
                         {{(countReaction | async)?.angry}}
                     </div>
@@ -66,8 +67,9 @@
     <p-button label="Add Comment" *ngIf="!addCommentFormShown" (click)="toggleAddCommentForm()"></p-button>
     <div class="add-comments" *ngIf="addCommentFormShown">
         <span class="p-float-label">
-            <textarea id="content" rows="4" cols="50" pInputTextarea [(ngModel)]="commentContent"
-                placeholder="your awesome comment . . ." style="resize: none;"></textarea>
+            <textarea maxlength="250" minlength="1" id="content" rows="4" cols="50" pInputTextarea
+                [(ngModel)]="commentContent" placeholder="your awesome comment . . ." style="resize: none;"
+                pTooltip="Max 250 characters"></textarea>
             <i class="fa-solid fa-icons" (click)="op.toggle($event)"></i>
         </span>
         <p-button label="Submit" (click)="addComment()"></p-button>

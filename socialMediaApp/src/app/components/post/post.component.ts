@@ -43,7 +43,9 @@ export class PostComponent {
 
   bestComment: Comment = {} as Comment;
   commentCount: string = '0';
+  userReactionId: number = -1;
 
+  hoverReactions: boolean = false;
 
   countReaction: Subject<CountReaction> = new BehaviorSubject<CountReaction>(
     {
@@ -55,6 +57,7 @@ export class PostComponent {
       angry: 0,
     }
   );
+
 
   constructor(private postService: PostService, private store: AngularFireStorage, private userService: UserService,
     private dialogService: DialogService, private commonService: CommonService) { }
@@ -73,6 +76,11 @@ export class PostComponent {
     this.getImage();
     this.getBestComment();
     this.updateCommentCount();
+    this.postService.checkUserReaction(this.post.id).subscribe(
+      data => {
+        this.userReactionId = data.reaction;
+      }
+    )
   }
 
   getBestComment() {
@@ -84,6 +92,12 @@ export class PostComponent {
   }
 
   react(reaction: Reaction) {
+    if (reaction === this.userReactionId) {
+      this.userReactionId = -1
+    }
+    else {
+      this.userReactionId = reaction
+    }
     this.postService.reactToPost(this.post.id, reaction).subscribe(
       data => {
         this.countReaction.next(data);
@@ -125,4 +139,5 @@ export class PostComponent {
   }
 
 }
+
 

@@ -20,20 +20,28 @@
                 </div>
             </p-accordionTab>
             <p-accordionTab header="Name & Bio">
-                <div style="display: flex;flex-direction: column;gap: .3rem;margin-bottom: .2rem;">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" pInputText [(ngModel)]="firstName" />
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" pInputText [(ngModel)]="lastName" />
-                    <label for="username">Username</label>
-                    <input type="text" id="username" pInputText [(ngModel)]="username"
-                        pTooltip="You cannot change your username" disabled />
+                <form [formGroup]="nameAndBioFormGroup">
+                    <div style="display: flex;flex-direction: column;gap: .3rem;margin-bottom: .2rem;"
+                        formGroupName="nameAndBio">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" pInputText pTooltip="At least 2 characters long"
+                            formControlName="firstName" />
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" pInputText pTooltip="At least 2 characters long"
+                            formControlName="lastName" />
+                        <label for="username">Username</label>
+                        <input type="text" id="username" pInputText formControlName="username"
+                            pTooltip="You cannot change your username" [disabled]="true" />
 
-                    <label for="bio">Bio</label>
-                    <input type="text" id="bio" pInputText [(ngModel)]="bio" />
+                        <label for="bio">Bio</label>
+                        <input maxlength="100" type="text" id="bio" pInputText pTooltip="Max 100 characters"
+                            formControlName="bio" />
 
-                </div>
-                <p-button label="Submit" (click)="submit('name')"></p-button>
+                        <p-button label="Submit" (click)="submit('name')"></p-button>
+                    </div>
+                </form>
+
+
             </p-accordionTab>
         </p-accordion>
     </div>

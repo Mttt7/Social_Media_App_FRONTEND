@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
 
 
   login() {
+    this.invalidCredentials = false;
     this.loading = true;
     this.authService.login(this.credentialsFormGroup.get('credentials')?.value).subscribe(
       data => {

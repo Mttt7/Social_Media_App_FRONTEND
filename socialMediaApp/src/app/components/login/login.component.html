@@ -5,6 +5,9 @@
             <div style="font-size: 0.92rem;font-style: italic;" *ngIf="newAccount">Registration success! Use your
                 credentials to Log in:
             </div>
+            <div style="font-size: 0.92rem;font-style: italic; color: lightcoral;" *ngIf="invalidCredentials">Wrong
+                username or password! Try
+                Again!</div>
             <div class="inputs" formGroupName="credentials">
                 <p-inputGroup>
                     <p-inputGroupAddon>

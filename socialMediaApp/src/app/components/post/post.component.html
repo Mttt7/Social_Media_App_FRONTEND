@@ -25,7 +25,7 @@
 
     <div class="bot-section section">
         <div class="reactions">
-            <div class="add-reaction">
+            <div class="add-reaction" *ngIf="userReactionId==-1 || hoverReactions" (mouseleave)="hoverReactions=false">
                 <div class="like reaction" (click)="react(reaction.LIKE)">
                     <div class="emoji">👍</div>{{(countReaction |
                     async)?.like}}
@@ -47,6 +47,29 @@
                     {{(countReaction | async)?.angry}}
                 </div>
 
+            </div>
+            <div class="add-reaction" (mouseenter)="hoverReactions=true" (mouseleave)="hoverReactions=false"
+                *ngIf="userReactionId!==-1 && !hoverReactions">
+                <div class="like reaction active" (click)="react(reaction.LIKE)" *ngIf="userReactionId==0">
+                    <div class="emoji">👍</div>{{(countReaction |
+                    async)?.like}} ({{(countReaction | async)?.overall}})
+                </div>
+                <div class="love reaction active" (click)="react(reaction.LOVE)" *ngIf="userReactionId==1">
+                    <div class="emoji">❤️</div>{{(countReaction |
+                    async)?.love}} ({{(countReaction | async)?.overall}})
+                </div>
+                <div class="haha reaction active" (click)="react(reaction.HAHA)" *ngIf="userReactionId==2">
+                    <div class="emoji">😄</div>
+                    {{(countReaction | async)?.haha}} ({{(countReaction | async)?.overall}})
+                </div>
+                <div class="sad reaction active" (click)="react(reaction.SAD)" *ngIf="userReactionId==3">
+                    <div class="emoji">😢</div>{{(countReaction
+                    | async)?.sad}} ({{(countReaction | async)?.overall}})
+                </div>
+                <div class="angry reaction active" (click)="react(reaction.ANGRY)" *ngIf="userReactionId==4">
+                    <div class="emoji">😠</div>
+                    {{(countReaction | async)?.angry}} ({{(countReaction | async)?.overall}})
+                </div>
             </div>
 
         </div>
