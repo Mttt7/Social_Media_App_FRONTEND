@@ -15,10 +15,8 @@ export class UserService {
 
   getUserId(): Observable<number> | null {
     if (!localStorage.getItem('jwtToken')) return null;
-    if (!localStorage.getItem('userId')) {
-      return this.http.get<number>(this.userUrl + '/userId');
-    }
-    return of(Number(localStorage.getItem('userId')));
+    return this.http.get<number>(this.userUrl + '/userId');
+    // return of(Number(localStorage.getItem('userId')));
   }
 
   getUserProfileById(userId: number): Observable<UserProfile> {

@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.userService.getUserId()?.subscribe(
           data => {
+            localStorage.removeItem('userId');
             localStorage.setItem('userId', data.toString());
             this.router.navigateByUrl('/home/feed');
           }

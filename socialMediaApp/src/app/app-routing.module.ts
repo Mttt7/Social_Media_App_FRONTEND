@@ -7,11 +7,12 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { Post } from './models/Post';
 import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
 import { RegisterComponent } from './components/register/register.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-
+  { path: 'notifications', component: NotificationsComponent },
   { path: 'users/:userId', component: UserProfileComponent },
 
   { path: 'settings', component: SettingsComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'home/:feedType', component: HomeComponent },
 
   { path: 'register', component: RegisterComponent }
+
 
 
 ];

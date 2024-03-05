@@ -66,16 +66,8 @@ export class SettingsComponent {
           LoginValidators.notOnlyWhitespace,
           LoginValidators.validName]),
         username: new FormControl({ value: '', disabled: true },
-          [Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-          LoginValidators.notOnlyWhitespace,
-          LoginValidators.validUsername]),
-        bio: new FormControl('',
-          [Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(100),
-          LoginValidators.notOnlyWhitespace])
+          []),
+        bio: ['', Validators.maxLength(100)],
       })
     });
 
@@ -127,7 +119,6 @@ export class SettingsComponent {
   }
 
   submit(type: string) {
-
     if (type === "profilePhoto") {
       this.userService.updateUserProfile({ photoUrl: this.uploadedProfilePhoto }).subscribe(() => {
         this.getUser();
@@ -139,12 +130,15 @@ export class SettingsComponent {
       })
     }
     else if (type === "name") {
-      if (this.nameAndBioFormGroup.invalid) return;
+      if (this.nameAndBioFormGroup.invalid) {
+        return
+      }
+
       this.userService.updateUserProfile({
         firstName: this.firstName?.value,
         lastName: this.lastName?.value,
         about: this.bio?.value
-      }).subscribe(() => {
+      }).subscribe((data) => {
         this.getUser();
       })
     }

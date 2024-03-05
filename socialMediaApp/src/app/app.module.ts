@@ -48,6 +48,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { PostFullSizeComponent } from './components/post-full-size/post-full-size.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { RegisterComponent } from './components/register/register.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { RegisterComponent } from './components/register/register.component';
     SettingsComponent,
     PostFullSizeComponent,
     CommentComponent,
-    RegisterComponent
+    RegisterComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

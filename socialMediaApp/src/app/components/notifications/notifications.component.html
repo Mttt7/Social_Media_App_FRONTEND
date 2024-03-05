@@ -1,0 +1,31 @@
+<div class="main">
+    <div *ngFor="let notification of notifications" class="notifications">
+        <div class="notification" [ngClass]="{'read':notification.read}">
+            <div class="profile-photo">
+                <img [src]="notification.authorProfilePhotoSrc" alt="">
+            </div>
+            <div class="message" *ngIf="notification.type=='alsoCommented'"> {{notification.authorName}} also
+                commented post.</div>
+            <div class="message" *ngIf="notification.type=='reactedToPost'">{{notification.authorName}} reacted to
+                your post.</div>
+            <div class="message" *ngIf="notification.type=='commentedPost'">{{notification.authorName}} commented
+                your post.</div>
+            <div class="message" *ngIf="notification.type=='reactedToComment'">{{notification.authorName}} reacted to
+                your comment.</div>
+            <div class="message" *ngIf="notification.type=='sentFriendRequest'">{{notification.authorName}} sent you a
+                friend request.</div>
+            <div class="message" *ngIf="notification.type=='acceptedFriendRequest'">{{notification.authorName}} accepted
+                your
+                friend request.</div>
+            <div class="time">{{getTime(notification)}}</div>
+            <p-button label="See" *ngIf="notification.type=='reactedToPost' || notification.type=='alsoCommented' || notification.type=='commentedPost' 
+                || notification.type=='reactedToComment' || notification.type=='acceptedFriendRequest'"
+                (onClick)="markAsRead(notification)"></p-button>
+            <p-button label="Respond" *ngIf="notification.type == 'sentFriendRequest'"
+                (onClick)="markAsRead(notification)"></p-button>
+
+        </div>
+    </div>
+    <p-button label="See Older" *ngIf="!noMoreNotifications" (onClick)="loadMore()"></p-button>
+    <div *ngIf="noMoreNotifications" style="color: white;">that's all for now</div>
+</div>
