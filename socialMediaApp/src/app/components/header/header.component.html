@@ -1,3 +1,18 @@
 <div class="main" style="z-index: 111;">
-    <p-tabMenu [model]="items" [activeItem]="activeItem"></p-tabMenu>
+    <p-tabMenu *ngIf="!mobileView" [model]="items" [activeItem]="activeItem"></p-tabMenu>
+
+    <div style="width: 100%;">
+        <p-menubar *ngIf="mobileView" [model]="itemsMobileView">
+            <ng-template pTemplate="start">
+                <img src="../../../assets/images/logo.png" height="40" class="mr-2" style="margin-right: .3rem;"
+                    [routerLink]="['home','feed']" />
+            </ng-template>
+            <ng-template pTemplate="end">
+                <img [src]="user.photoUrl" height="40" class="mr-2" style="border-radius: 50%;margin-right: .5rem;"
+                    [routerLink]="['users',user.id]" />
+            </ng-template>
+        </p-menubar>
+    </div>
+
+
 </div>

@@ -28,6 +28,7 @@ import { DividerModule } from 'primeng/divider';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BadgeModule } from 'primeng/badge';
+import { MenubarModule } from 'primeng/menubar';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -96,7 +97,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     DividerModule,
     AutoFocusModule,
     RadioButtonModule,
-    BadgeModule
+    BadgeModule,
+    MenubarModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
