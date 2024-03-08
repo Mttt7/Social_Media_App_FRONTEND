@@ -57,3 +57,11 @@ input[type="file"]::file-selector-button:active {
 }
 
 /* ------------------------ */
+
+
+@media (max-width: 700px) {
+    .media {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

@@ -12,7 +12,7 @@ export class CommonService {
 
 
   getImageFromStore(imagePath: String) {
-    imagePath = imagePath.toString();
+    imagePath = imagePath?.toString();
     if (imagePath == null || imagePath == '') {
 
       return of(null);

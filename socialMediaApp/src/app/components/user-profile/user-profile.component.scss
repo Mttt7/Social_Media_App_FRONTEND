@@ -124,3 +124,29 @@
     cursor: pointer;
     transform: scale(1.02);
 }
+
+.friends {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+
+@media (max-width: 700px) {
+    .upper-section {
+        flex-direction: column;
+        height: 860px;
+    }
+
+    .info {
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+
+    .add-friend {
+        margin-bottom: 1rem;
+    }
+}

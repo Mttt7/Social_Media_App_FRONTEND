@@ -8,8 +8,8 @@
                     [routerLink]="['home','feed']" />
             </ng-template>
             <ng-template pTemplate="end">
-                <img [src]="user.photoUrl" height="40" class="mr-2" style="border-radius: 50%;margin-right: .5rem;"
-                    [routerLink]="['users',user.id]" />
+                <img [src]="user?.photoUrl" height="40" class="mr-2" style="border-radius: 50%;margin-right: .5rem;"
+                    [routerLink]="['users',user?.id]" />
             </ng-template>
         </p-menubar>
     </div>

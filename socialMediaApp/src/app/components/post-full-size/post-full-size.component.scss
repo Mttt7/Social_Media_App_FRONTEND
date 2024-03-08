@@ -178,3 +178,21 @@ ul {
     font-weight: 500;
     font-size: 1.1rem;
 }
+
+@media (max-width: 550px) {
+    .add-reaction {
+        width: 270px;
+    }
+
+    .reaction {
+        font-size: 1.4rem;
+    }
+
+    .emoji {
+        font-size: 1.6rem;
+    }
+
+    #content {
+        width: 280px;
+    }
+}
