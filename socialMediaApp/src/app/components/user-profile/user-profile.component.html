@@ -29,13 +29,34 @@
     <div class="content">
 
         <div class="main-content" *ngIf="activeMenuItem==menuItems[0]">
-            <div class="posts" *ngIf="activeMenuItem.id==='posts'">
+            <div class="posts">
                 <app-post *ngFor="let post of userPosts" [post]="post" class="post"></app-post>
             </div>
 
             <p-button label="Load More" (click)="loadMorePosts()" class="load-more-btn" *ngIf="!noMorePosts"></p-button>
             <div *ngIf="noMorePosts">
                 no more posts
+                <i class="fa-regular fa-face-sad-tear"></i>
+            </div>
+
+        </div>
+
+        <div class="main-content" *ngIf="activeMenuItem==menuItems[1]">
+            <div class="photos">
+                <div class="photo-posts">
+                    <div class="grid-container" *ngIf="!loading">
+                        <div *ngFor="let photoPost of userPostWithPhotos" class="grid-item">
+                            <img [src]="photoPost.imageUrl" [routerLink]="['/posts/',photoPost.postId]">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p-button label="Load More" (click)="loadMorePhotoPosts()" class="load-more-btn"
+                *ngIf="!noMorePhotoPosts"></p-button>
+            <div *ngIf="noMorePhotoPosts">
+                no more photos
                 <i class="fa-regular fa-face-sad-tear"></i>
             </div>
 

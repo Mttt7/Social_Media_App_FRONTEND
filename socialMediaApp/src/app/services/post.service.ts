@@ -5,6 +5,7 @@ import { Post } from '../models/Post';
 import { ReactionCountResponse } from '../models/ReactionCountResponse';
 import { PostCreateRequestPayload } from '../models/PostCreateRequestPayload';
 import { Comment } from '../models/Comment';
+import { PostWithPhoto } from '../models/PostWithPhoto';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,10 @@ export class PostService {
     return this.http.get<Comment>(`${this.postUrl}/${postId}/bestComment`);
   }
 
+  getPostWithPhotos(userId: number, pageNumber: number): Observable<GetResponsePostWithPhoto> {
+    return this.http.get<GetResponsePostWithPhoto>(`${this.postUrl}/photos/${userId}?pageSize=12&pageNumber=${pageNumber}`);
+  }
+
 }
 
 interface GetResponsePosts {
@@ -80,4 +85,15 @@ interface UserReactionResponse {
   reaction: number;
 }
 
+interface GetResponsePostWithPhoto {
+  content: PostWithPhoto[];
+  pageable: any;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  size: number;
+  number: number;
+  first: boolean;
+  numberOfElements: number;
+}
 
