@@ -131,7 +131,7 @@ export class HeaderComponent {
         this.updateNotificationsNumber();
       }
     }
-    return [...this.items.slice(0, 4), notificationMobile, ...this.items.slice(5, 6)];
+    return [...this.items.slice(0, 5), notificationMobile, ...this.items.slice(6, 7)];
   }
 
   getUser() {
@@ -154,7 +154,7 @@ export class HeaderComponent {
   updateNotificationsNumber() {
     this.notificationService.countNotReadNotifications().subscribe((data) => {
       this.notificationsNumber = data.count;
-      this.items[4].badge = data.count.toString();
+      this.items[5].badge = data.count.toString();
       this.items = [...this.items];
     });
   }
