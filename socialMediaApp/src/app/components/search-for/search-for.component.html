@@ -1,0 +1,25 @@
+<div class="main">
+    <div>
+        <p-selectButton [options]="stateOptions" [(ngModel)]="mode" optionLabel="label" (click)="toggleMode() "
+            optionValue="value"></p-selectButton>
+    </div>
+
+    <span class="p-input-icon-left">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input pInputText placeholder="Search" #searchInput (input)="search()" />
+    </span>
+
+    <div class="results" *ngIf="mode==='users'">
+        <div *ngFor="let user of users">
+            <app-user-badge [userId]="user.id" [routerLink]="['/users', user.id]"></app-user-badge>
+        </div>
+    </div>
+    <div class="results" *ngIf="mode=='posts'">
+        <div *ngFor="let post of posts">
+            <app-post [post]="post"></app-post>
+        </div>
+    </div>
+
+    <p-button label="Load More" (click)="loadMore()" class="load-more-btn" *ngIf="!noMorePosts"></p-button>
+
+</div>

@@ -29,6 +29,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BadgeModule } from 'primeng/badge';
 import { MenubarModule } from 'primeng/menubar';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -50,6 +51,7 @@ import { PostFullSizeComponent } from './components/post-full-size/post-full-siz
 import { CommentComponent } from './components/comment/comment.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { SearchForComponent } from './components/search-for/search-for.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     PostFullSizeComponent,
     CommentComponent,
     RegisterComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SearchForComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +101,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     AutoFocusModule,
     RadioButtonModule,
     BadgeModule,
-    MenubarModule
+    MenubarModule,
+    SelectButtonModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },

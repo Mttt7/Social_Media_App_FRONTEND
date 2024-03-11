@@ -51,6 +51,12 @@ export class HeaderComponent {
         }
       },
       {
+        label: 'Search', icon: 'fa-solid fa-magnifying-glass', command: () => {
+          this.router.navigateByUrl('/searchFor')
+          this.updateNotificationsNumber();
+        }
+      },
+      {
         label: 'My Profile', icon: 'fa-solid fa-user', command: () => {
           this.router.navigateByUrl('/users/' + this.user.id);
           this.updateNotificationsNumber();
@@ -94,16 +100,19 @@ export class HeaderComponent {
           this.activeItem = this.items[0];
         } else if (event.urlAfterRedirects === '/home/friends') {
           this.activeItem = this.items[1];
-        } else if (event.urlAfterRedirects.startsWith('/users')
-          && event.urlAfterRedirects === '/users/' + userId) {
+        } else if (event.urlAfterRedirects === '/searchFor') {
           this.activeItem = this.items[2];
+        }
+        else if (event.urlAfterRedirects.startsWith('/users')
+          && event.urlAfterRedirects === '/users/' + userId) {
+          this.activeItem = this.items[3];
         } else if (event.urlAfterRedirects.startsWith('/users')
           && event.urlAfterRedirects !== '/users/' + userId) {
           this.activeItem = this.items[-1]
         } else if (event.urlAfterRedirects === '/settings') {
-          this.activeItem = this.items[3];
-        } else if (event.urlAfterRedirects === '/notifications') {
           this.activeItem = this.items[4];
+        } else if (event.urlAfterRedirects === '/notifications') {
+          this.activeItem = this.items[5];
         }
         else if (event.urlAfterRedirects === '/login') {
           this.activeItem = this.items[5];
